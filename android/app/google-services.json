@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "643009989001",
+    "project_id": "jajanan-boeng",
+    "storage_bucket": "jajanan-boeng.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643009989001:android:6f2664ad67b7e210a7f958",
+        "android_client_info": {
+          "package_name": "com.jajanan.boeng"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643009989001-ub6sqiugabgqn0rfeeriuc10tm65h63e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCccbCNGrXOsILWzVPl1gsLvS6_vpgsbJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643009989001-ub6sqiugabgqn0rfeeriuc10tm65h63e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
