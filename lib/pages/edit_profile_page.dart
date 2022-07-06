@@ -20,9 +20,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     TextEditingController nameController =
         TextEditingController(text: user.name);
 
-    TextEditingController usernameController =
-        TextEditingController(text: user.username);
-
     TextEditingController addressController =
         TextEditingController(text: user.address);
 
@@ -33,7 +30,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       if (await authProvider.update(
         authProvider.user.token,
         nameController.text,
-        usernameController.text,
         addressController.text,
         phoneController.text,
       )) {
@@ -89,38 +85,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               controller: nameController,
               decoration: InputDecoration(
                 hintText: '${user.name}',
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: subtitleColor,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget usernameInput() {
-      return Container(
-        margin: EdgeInsets.only(
-          top: defaultMargin,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Username',
-              style: secondaryTextStyle.copyWith(
-                fontSize: 13,
-              ),
-            ),
-            TextFormField(
-              style: primaryTextStyle,
-              controller: usernameController,
-              decoration: InputDecoration(
-                hintText: '${user.username}',
                 hintStyle: primaryTextStyle,
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -244,7 +208,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             nameInput(),
-            usernameInput(),
             addressInput(),
             phoneInput(),
             updateButton(),

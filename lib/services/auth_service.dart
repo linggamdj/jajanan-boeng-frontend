@@ -17,7 +17,7 @@ class AuthService {
     var headers = {'Content-Type': 'application/json'};
     var body = jsonEncode({
       'name': name,
-      'username': username,
+      'username': username.toLowerCase(),
       'address': address,
       'phone': phone,
       'password': password,
@@ -38,6 +38,7 @@ class AuthService {
       return user;
     } else {
       print(response.body);
+      print(response.headers);
       throw Exception('Gagal Register');
     }
   }
@@ -50,7 +51,7 @@ class AuthService {
     var url = '$baseUrl/login';
     var headers = {'Content-Type': 'application/json'};
     var body = jsonEncode({
-      'username': username,
+      'username': username.toLowerCase(),
       'password': password,
     });
 
@@ -74,8 +75,8 @@ class AuthService {
   }
 
   // UPDATE
-  Future<bool> update(String token, String name, String username,
-      String address, String phone) async {
+  Future<bool> update(
+      String token, String name, String address, String phone) async {
     var url = '$baseUrl/user';
     var headers = {
       'Content-Type': 'application/json',
@@ -83,7 +84,6 @@ class AuthService {
     };
     var body = jsonEncode({
       'name': name,
-      'username': username,
       'address': address,
       'phone': phone,
     });
@@ -94,7 +94,7 @@ class AuthService {
       body: body,
     );
 
-    print(response.body);
+    print(response.headers);
 
     if (response.statusCode == 200) {
       return true;

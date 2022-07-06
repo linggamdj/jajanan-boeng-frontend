@@ -57,10 +57,10 @@ class AuthProvider with ChangeNotifier {
   }
 
   // UPDATE
-  Future<bool> update(String token, String name, String username,
-      String address, String phone) async {
+  Future<bool> update(
+      String token, String name, String address, String phone) async {
     try {
-      if (await AuthService().update(token, name, username, address, phone)) {
+      if (await AuthService().update(token, name, address, phone)) {
         return true;
       } else {
         return false;
