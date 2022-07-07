@@ -35,7 +35,7 @@ class _SignInPageState extends State<SignInPage> {
           SnackBar(
             backgroundColor: alertColor,
             content: Text(
-              'Gagal Login',
+              'Username atau Password Salah!',
               textAlign: TextAlign.center,
             ),
           ),
@@ -202,7 +202,38 @@ class _SignInPageState extends State<SignInPage> {
       );
     }
 
-    Widget footer() {
+    Widget footerPassword() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 10,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Forgot password? Chat our ',
+              style: subtitleTextStyle.copyWith(
+                fontSize: 12,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/sign-up');
+              },
+              child: Text(
+                'Admin',
+                style: purpleTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: medium,
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    Widget footerSignUp() {
       return Container(
         margin: EdgeInsets.only(
           top: 10,
@@ -249,7 +280,8 @@ class _SignInPageState extends State<SignInPage> {
                 usernameInput(),
                 passwordInput(),
                 isLoading ? LoadingButton() : signInButton(),
-                footer(),
+                footerPassword(),
+                footerSignUp(),
               ],
             ),
           ),

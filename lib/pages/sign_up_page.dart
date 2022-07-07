@@ -20,6 +20,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
   TextEditingController passwordController = TextEditingController(text: '');
 
+  TextEditingController confirmPasswordController =
+      TextEditingController(text: '');
+
   bool isLoading = false;
 
   @override
@@ -31,20 +34,32 @@ class _SignUpPageState extends State<SignUpPage> {
         isLoading = true;
       });
 
-      if (await authProvider.register(
-        name: nameController.text,
-        username: usernameController.text,
-        address: addressController.text,
-        phone: phoneController.text,
-        password: passwordController.text,
-      )) {
-        Navigator.pushNamed(context, '/home');
+      if (passwordController.text == confirmPasswordController.text) {
+        if (await authProvider.register(
+          name: nameController.text,
+          username: usernameController.text,
+          address: addressController.text,
+          phone: phoneController.text,
+          password: passwordController.text,
+        )) {
+          Navigator.pushNamed(context, '/home');
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: alertColor,
+              content: Text(
+                'Username atau No. HP sudah Terdaftar!',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: alertColor,
             content: Text(
-              'Gagal Register',
+              'Password Tidak Cocok!',
               textAlign: TextAlign.center,
             ),
           ),
@@ -88,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Full Name',
+              'Nama Lengkap',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -196,7 +211,7 @@ class _SignUpPageState extends State<SignUpPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Address',
+              'Alamat Pengiriman',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -229,7 +244,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: primaryTextStyle,
                         controller: addressController,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Your Email Address',
+                          hintText: 'Your Address',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -250,7 +265,7 @@ class _SignUpPageState extends State<SignUpPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Phone Number',
+              'Nomor Handphone',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -283,7 +298,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: primaryTextStyle,
                         controller: phoneController,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Your Email Address',
+                          hintText: 'Your Number',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -339,6 +354,61 @@ class _SignUpPageState extends State<SignUpPage> {
                         obscureText: true,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Your Password',
+                          hintStyle: subtitleTextStyle,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    Widget confirmPasswordInput() {
+      return Container(
+        margin: EdgeInsets.only(top: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Konfirm Password',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/ic_password.png',
+                      width: 17,
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        style: primaryTextStyle,
+                        controller: confirmPasswordController,
+                        obscureText: true,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Confirm Password',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -423,6 +493,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   addressInput(),
                   phoneInput(),
                   passwordInput(),
+                  confirmPasswordInput(),
                   isLoading ? LoadingButton() : signUpButton(),
                   footer(),
                 ],

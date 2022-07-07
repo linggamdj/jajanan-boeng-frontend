@@ -75,7 +75,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Name',
+              'Nama Lengkap',
               style: secondaryTextStyle.copyWith(
                 fontSize: 13,
               ),
@@ -107,7 +107,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Address',
+              'Alamat Pengiriman',
               style: secondaryTextStyle.copyWith(
                 fontSize: 13,
               ),
@@ -139,7 +139,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Phone Number',
+              'Nomor Hanphone',
               style: secondaryTextStyle.copyWith(
                 fontSize: 13,
               ),

@@ -23,11 +23,7 @@ class ChatPage extends StatelessWidget {
         backgroundColor: backgroundColor1,
         centerTitle: true,
         title: Text(
-          'Message Support',
-          style: primaryTextStyle.copyWith(
-            fontSize: 15,
-            fontWeight: medium,
-          ),
+          'Chat Admin',
         ),
         elevation: 0,
       );

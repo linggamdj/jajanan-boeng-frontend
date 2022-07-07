@@ -59,108 +59,108 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    Widget categories() {
-      return Container(
-        margin: EdgeInsets.only(
-          top: defaultMargin,
-        ),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SizedBox(
-                width: defaultMargin,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: EdgeInsets.only(
-                  right: 16,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: primaryColor,
-                ),
-                child: Text(
-                  'All Shoes',
-                  style: primaryTextStyle.copyWith(
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: EdgeInsets.only(
-                  right: 16,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Running',
-                  style: subtitleTextStyle.copyWith(
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: EdgeInsets.only(
-                  right: 16,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Running',
-                  style: subtitleTextStyle.copyWith(
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: EdgeInsets.only(
-                  right: 16,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Running',
-                  style: subtitleTextStyle.copyWith(
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
+    // Widget categories() {
+    //   return Container(
+    //     margin: EdgeInsets.only(
+    //       top: defaultMargin,
+    //     ),
+    //     child: SingleChildScrollView(
+    //       scrollDirection: Axis.horizontal,
+    //       child: Row(
+    //         children: [
+    //           SizedBox(
+    //             width: defaultMargin,
+    //           ),
+    //           Container(
+    //             padding: EdgeInsets.symmetric(
+    //               horizontal: 12,
+    //               vertical: 10,
+    //             ),
+    //             margin: EdgeInsets.only(
+    //               right: 16,
+    //             ),
+    //             decoration: BoxDecoration(
+    //               borderRadius: BorderRadius.circular(12),
+    //               color: primaryColor,
+    //             ),
+    //             child: Text(
+    //               'All Shoes',
+    //               style: primaryTextStyle.copyWith(
+    //                 fontWeight: medium,
+    //               ),
+    //             ),
+    //           ),
+    //           Container(
+    //             padding: EdgeInsets.symmetric(
+    //               horizontal: 12,
+    //               vertical: 10,
+    //             ),
+    //             margin: EdgeInsets.only(
+    //               right: 16,
+    //             ),
+    //             decoration: BoxDecoration(
+    //               borderRadius: BorderRadius.circular(12),
+    //               border: Border.all(
+    //                 color: subtitleColor,
+    //               ),
+    //               color: transparentColor,
+    //             ),
+    //             child: Text(
+    //               'Running',
+    //               style: subtitleTextStyle.copyWith(
+    //                 fontWeight: medium,
+    //               ),
+    //             ),
+    //           ),
+    //           Container(
+    //             padding: EdgeInsets.symmetric(
+    //               horizontal: 12,
+    //               vertical: 10,
+    //             ),
+    //             margin: EdgeInsets.only(
+    //               right: 16,
+    //             ),
+    //             decoration: BoxDecoration(
+    //               borderRadius: BorderRadius.circular(12),
+    //               border: Border.all(
+    //                 color: subtitleColor,
+    //               ),
+    //               color: transparentColor,
+    //             ),
+    //             child: Text(
+    //               'Running',
+    //               style: subtitleTextStyle.copyWith(
+    //                 fontWeight: medium,
+    //               ),
+    //             ),
+    //           ),
+    //           Container(
+    //             padding: EdgeInsets.symmetric(
+    //               horizontal: 12,
+    //               vertical: 10,
+    //             ),
+    //             margin: EdgeInsets.only(
+    //               right: 16,
+    //             ),
+    //             decoration: BoxDecoration(
+    //               borderRadius: BorderRadius.circular(12),
+    //               border: Border.all(
+    //                 color: subtitleColor,
+    //               ),
+    //               color: transparentColor,
+    //             ),
+    //             child: Text(
+    //               'Running',
+    //               style: subtitleTextStyle.copyWith(
+    //                 fontWeight: medium,
+    //               ),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    // }
 
     Widget popularProductsTitle() {
       return Container(
@@ -170,7 +170,7 @@ class HomePage extends StatelessWidget {
           right: defaultMargin,
         ),
         child: Text(
-          "Popular Products",
+          "Produk yang Paling Laris!",
           style: primaryTextStyle.copyWith(
             fontSize: 22,
             fontWeight: semiBold,
@@ -212,7 +212,7 @@ class HomePage extends StatelessWidget {
           right: defaultMargin,
         ),
         child: Text(
-          "New Arrivals",
+          "Produk Baru",
           style: primaryTextStyle.copyWith(
             fontSize: 22,
             fontWeight: semiBold,
@@ -239,7 +239,7 @@ class HomePage extends StatelessWidget {
     return ListView(
       children: [
         header(),
-        categories(),
+        // categories(),
         popularProductsTitle(),
         popularProducts(),
         newArrivalsTitle(),

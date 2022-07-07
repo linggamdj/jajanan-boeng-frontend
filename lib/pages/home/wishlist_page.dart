@@ -16,7 +16,7 @@ class WishListPage extends StatelessWidget {
         backgroundColor: backgroundColor1,
         centerTitle: true,
         title: Text(
-          'Favorite Shoes',
+          'Produk Favorit Mu',
         ),
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -39,7 +39,7 @@ class WishListPage extends StatelessWidget {
                 height: 23,
               ),
               Text(
-                'You don\'t have dream shoes?',
+                'Produk favorit mu kosong :(',
                 style: primaryTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: medium,
@@ -49,7 +49,7 @@ class WishListPage extends StatelessWidget {
                 height: 12,
               ),
               Text(
-                'Let\'s find your favorite shoes',
+                'Ayo jelajahi produk kami!',
                 style: secondaryTextStyle,
               ),
               SizedBox(
@@ -71,7 +71,7 @@ class WishListPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       )),
                   child: Text(
-                    'Explore Store',
+                    'Cari Produk',
                     style: primaryTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: medium,

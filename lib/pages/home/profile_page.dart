@@ -123,10 +123,10 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               menuItem(
-                'Your Order',
+                'Pesanan Anda',
               ),
               menuItem(
-                'Help',
+                'Ganti Password',
               ),
               SizedBox(
                 height: 30,
@@ -139,13 +139,16 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               menuItem(
+                'Konfirmasi Pesanan (WA)',
+              ),
+              menuItem(
                 'Privacy & Policy',
               ),
               menuItem(
                 'Term of Service',
               ),
               menuItem(
-                'Rate App',
+                'Beri Penilaian',
               ),
             ],
           ),
