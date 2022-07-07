@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:jajanan_boeng/models/cart_model.dart';
 
 class TransactionService {
-  String baseUrl = 'http://5ca3-158-140-182-101.ngrok.io/api';
+  String baseUrl = 'http://95c1-158-140-182-101.ngrok.io/api';
 
   Future<bool> checkout(
       String token, List<CartModel> carts, double totalPrice) async {

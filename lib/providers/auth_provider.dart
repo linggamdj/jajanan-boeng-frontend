@@ -56,11 +56,32 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  // UPDATE
+  // UPDATE PROFILE
   Future<bool> update(
-      String token, String name, String address, String phone) async {
+    String token,
+    String name,
+    String address,
+    String phone,
+  ) async {
     try {
       if (await AuthService().update(token, name, address, phone)) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  // CHANGE PASSWORD
+  Future<bool> changePassword(
+    String token,
+    String newPassword,
+  ) async {
+    try {
+      if (await AuthService().changePassword(token, newPassword)) {
         return true;
       } else {
         return false;

@@ -3,7 +3,7 @@ import 'package:jajanan_boeng/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  String baseUrl = 'http://5ca3-158-140-182-101.ngrok.io/api';
+  String baseUrl = 'http://95c1-158-140-182-101.ngrok.io/api';
 
   // REGISTER
   Future<UserModel> register({
@@ -69,15 +69,16 @@ class AuthService {
 
       return user;
     } else {
-      print(response.body);
+      // print(response.body);
+
       throw Exception('Gagal Login');
     }
   }
 
-  // UPDATE
+  // UPDATE PROFILE
   Future<bool> update(
       String token, String name, String address, String phone) async {
-    var url = '$baseUrl/user';
+    var url = '$baseUrl/updateprofile';
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token,
@@ -94,12 +95,38 @@ class AuthService {
       body: body,
     );
 
-    print(response.headers);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       return true;
     } else {
-      throw Exception('Gagal Edit Profile');
+      throw Exception('Gagal Update Profile');
+    }
+  }
+
+  // CHANGE PASSWORD
+  Future<bool> changePassword(String token, String newPassword) async {
+    var url = '$baseUrl/changepasswordd';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    };
+    var body = jsonEncode({
+      'password': newPassword,
+    });
+
+    var response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: body,
+    );
+
+    // print(response.body);
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception('Gagal Ubah Password');
     }
   }
 }

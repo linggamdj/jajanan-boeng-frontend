@@ -125,8 +125,13 @@ class ProfilePage extends StatelessWidget {
               menuItem(
                 'Pesanan Anda',
               ),
-              menuItem(
-                'Ganti Password',
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/change-password');
+                },
+                child: menuItem(
+                  'Ganti Password',
+                ),
               ),
               SizedBox(
                 height: 30,

@@ -6,6 +6,7 @@ import 'package:jajanan_boeng/pages/checkout_page.dart';
 import 'package:jajanan_boeng/pages/checkout_success_page.dart';
 import 'package:jajanan_boeng/pages/detail_chat_page.dart';
 import 'package:jajanan_boeng/pages/edit_profile_page.dart';
+import 'package:jajanan_boeng/pages/change_password_page.dart';
 import 'package:jajanan_boeng/pages/home/main_page.dart';
 import 'package:jajanan_boeng/pages/product_page.dart';
 import 'package:jajanan_boeng/pages/sign_in_page.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
           '/sign-up': (context) => SignUpPage(),
           '/home': (context) => MainPage(),
           '/edit-profile': (context) => EditProfilePage(),
+          '/change-password': (context) => ChangePasswordPage(),
           '/cart': (context) => CartPage(),
           '/checkout': (context) => CheckoutPage(),
           '/checkout-success': (context) => CheckoutSuccessPage(),
