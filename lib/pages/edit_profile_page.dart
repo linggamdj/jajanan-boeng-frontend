@@ -84,7 +84,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               style: primaryTextStyle,
               controller: nameController,
               decoration: InputDecoration(
-                hintText: '${user.name}',
                 hintStyle: primaryTextStyle,
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -112,15 +111,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 fontSize: 13,
               ),
             ),
-            TextFormField(
-              style: primaryTextStyle,
-              controller: addressController,
-              decoration: InputDecoration(
-                hintText: '${user.address}',
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: subtitleColor,
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: TextFormField(
+                style: primaryTextStyle,
+                controller: addressController,
+                decoration: InputDecoration(
+                  hintStyle: primaryTextStyle,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: subtitleColor,
+                    ),
                   ),
                 ),
               ),
@@ -148,7 +150,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               style: primaryTextStyle,
               controller: phoneController,
               decoration: InputDecoration(
-                hintText: '${user.phone}',
                 hintStyle: primaryTextStyle,
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -170,15 +171,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: TextButton(
           onPressed: handleUpdate,
           style: TextButton.styleFrom(
-              backgroundColor: primaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              )),
-          child: Text('Update Data',
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              )),
+            backgroundColor: primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(
+            'Update Profile',
+            style: primaryTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: medium,
+            ),
+          ),
         ),
       );
     }

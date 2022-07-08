@@ -78,7 +78,7 @@ class _SignUpPageState extends State<SignUpPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Sign Up',
+              'Daftar Akun',
               style: primaryTextStyle.copyWith(
                 fontSize: 24,
                 fontWeight: semiBold,
@@ -88,7 +88,7 @@ class _SignUpPageState extends State<SignUpPage> {
               height: 2,
             ),
             Text(
-              'Register and Happy Shopping',
+              'Silakan Isi Kolom di Bawah Ini',
               style: subtitleTextStyle,
             ),
           ],
@@ -453,7 +453,7 @@ class _SignUpPageState extends State<SignUpPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Already have an account? ',
+              'Sudah punya akun? ',
               style: subtitleTextStyle.copyWith(
                 fontSize: 12,
               ),
@@ -463,7 +463,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 Navigator.pop(context, '/sign-in');
               },
               child: Text(
-                'Sign in',
+                'Login',
                 style: purpleTextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: medium,
@@ -483,21 +483,19 @@ class _SignUpPageState extends State<SignUpPage> {
             margin: EdgeInsets.symmetric(
               horizontal: defaultMargin,
             ),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  header(),
-                  fullNameInput(),
-                  usernameInput(),
-                  addressInput(),
-                  phoneInput(),
-                  passwordInput(),
-                  confirmPasswordInput(),
-                  isLoading ? LoadingButton() : signUpButton(),
-                  footer(),
-                ],
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                header(),
+                fullNameInput(),
+                usernameInput(),
+                addressInput(),
+                phoneInput(),
+                passwordInput(),
+                confirmPasswordInput(),
+                isLoading ? LoadingButton() : signUpButton(),
+                footer(),
+              ],
             ),
           ),
         ),

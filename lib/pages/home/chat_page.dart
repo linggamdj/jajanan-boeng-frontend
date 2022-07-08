@@ -23,7 +23,7 @@ class ChatPage extends StatelessWidget {
         backgroundColor: backgroundColor1,
         centerTitle: true,
         title: Text(
-          'Chat Admin',
+          user.roles == 'USER' ? 'Chat Penjual' : 'Chat Pelanggan',
         ),
         elevation: 0,
       );
@@ -45,7 +45,7 @@ class ChatPage extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                'Opss no message yet?',
+                'Kamu belum pernah mengobrol dengan Penjual',
                 style: primaryTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: medium,
@@ -55,7 +55,8 @@ class ChatPage extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                'You have never done a transaction',
+                'Silakan memulai ngobrol dengan memilih salah satu produk, kemudian klik logo ngobrol :)',
+                textAlign: TextAlign.center,
                 style: secondaryTextStyle,
               ),
               SizedBox(
@@ -78,7 +79,7 @@ class ChatPage extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Explore Store',
+                    'Cari Produk',
                     style: primaryTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: medium,
@@ -94,31 +95,32 @@ class ChatPage extends StatelessWidget {
 
     Widget content() {
       return StreamBuilder<List<MessageModel>>(
-          stream: MessageService().getMessages(user.roles),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data!.length == 0) {
-                return emptyChat();
-              }
-
-              return Expanded(
-                child: Container(
-                  width: double.infinity,
-                  color: backgroundColor3,
-                  child: ListView(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: defaultMargin,
-                    ),
-                    children: [
-                      ChatTile(snapshot.data![snapshot.data!.length - 1]),
-                    ],
-                  ),
-                ),
-              );
-            } else {
+        stream: MessageService().getMessages(user.roles),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data!.length == 0) {
               return emptyChat();
             }
-          });
+
+            return Expanded(
+              child: Container(
+                width: double.infinity,
+                color: backgroundColor3,
+                child: ListView(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: defaultMargin,
+                  ),
+                  children: [
+                    ChatTile(snapshot.data![snapshot.data!.length - 1]),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return emptyChat();
+          }
+        },
+      );
     }
 
     return Column(

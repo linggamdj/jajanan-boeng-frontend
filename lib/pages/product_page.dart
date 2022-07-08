@@ -16,23 +16,6 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  List images = [
-    'assets/img_item_example.png',
-    'assets/img_item_example.png',
-    'assets/img_item_example.png'
-  ];
-
-  List familiarShoes = [
-    'assets/img_item_example.png',
-    'assets/img_item_example.png',
-    'assets/img_item_example.png',
-    'assets/img_item_example.png',
-    'assets/img_item_example.png',
-    'assets/img_item_example.png',
-    'assets/img_item_example.png',
-    'assets/img_item_example.png'
-  ];
-
   int currentIndex = 0;
 
   @override
@@ -73,7 +56,7 @@ class _ProductPageState extends State<ProductPage> {
                     height: 12,
                   ),
                   Text(
-                    'Hurray',
+                    'Berhasil Ditambah',
                     style: primaryTextStyle.copyWith(
                       fontSize: 18,
                       fontWeight: semiBold,
@@ -83,7 +66,8 @@ class _ProductPageState extends State<ProductPage> {
                     height: 12,
                   ),
                   Text(
-                    'Item added successfully',
+                    'Produk ini telah berhasil ditambahkan ke keranjang',
+                    textAlign: TextAlign.center,
                     style: secondaryTextStyle,
                   ),
                   SizedBox(
@@ -128,22 +112,6 @@ class _ProductPageState extends State<ProductPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: currentIndex == index ? primaryColor : secondaryTextColor,
-        ),
-      );
-    }
-
-    Widget familiarShoesCard(String imageUrl) {
-      return Container(
-        width: 54,
-        height: 54,
-        margin: EdgeInsets.only(
-          right: 16,
-        ),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(imageUrl),
-          ),
-          borderRadius: BorderRadius.circular(6),
         ),
       );
     }
@@ -343,46 +311,6 @@ class _ProductPageState extends State<ProductPage> {
                       fontWeight: light,
                     ),
                     textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-            ),
-            // Familiar
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(
-                top: defaultMargin,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: defaultMargin,
-                    ),
-                    child: Text(
-                      'Familiar Shoes',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: medium,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: familiarShoes.map((image) {
-                        index++;
-                        return Container(
-                          margin: EdgeInsets.only(
-                            left: index == 0 ? defaultMargin : 0,
-                          ),
-                          child: familiarShoesCard(image),
-                        );
-                      }).toList(),
-                    ),
                   ),
                 ],
               ),

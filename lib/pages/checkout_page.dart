@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/models/user_model.dart';
 import 'package:jajanan_boeng/providers/auth_provider.dart';
 import 'package:jajanan_boeng/providers/cart_provider.dart';
-import 'package:jajanan_boeng/providers/transaction_provider.dart';
+import 'package:jajanan_boeng/providers/checkout_provider.dart';
 import 'package:jajanan_boeng/theme.dart';
 import 'package:jajanan_boeng/widgets/checkout_card.dart';
 import 'package:jajanan_boeng/widgets/loading_button.dart';
@@ -21,8 +21,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
-    TransactionProvider transactionProvider =
-        Provider.of<TransactionProvider>(context);
+    CheckoutProvider checkoutProvider = Provider.of<CheckoutProvider>(context);
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
 
@@ -31,7 +30,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         isLoading = true;
       });
 
-      if (await transactionProvider.checkout(
+      if (await checkoutProvider.checkout(
         authProvider.user.token,
         cartProvider.carts,
         cartProvider.totalPrice(),
@@ -51,7 +50,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         backgroundColor: backgroundColor1,
         elevation: 0,
         centerTitle: true,
-        title: Text('Checkout Details'),
+        title: Text('Detail Checkout'),
       );
     }
 
@@ -87,84 +86,96 @@ class _CheckoutPageState extends State<CheckoutPage> {
             ),
           ),
           // Address Detail
-          Container(
-            margin: EdgeInsets.only(
-              top: defaultMargin,
-            ),
-            padding: EdgeInsets.all(
-              20,
-            ),
-            decoration: BoxDecoration(
-              color: backgroundColor4,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Address Detail',
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: medium,
+          Flexible(
+            child: Container(
+              margin: EdgeInsets.only(
+                top: defaultMargin,
+              ),
+              padding: EdgeInsets.all(
+                20,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor4,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Detail Alamat',
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: medium,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                Row(
-                  children: [
-                    Column(
-                      children: [
-                        Image.asset(
-                          'assets/ic_location_rest.png',
-                          width: 40,
-                        ),
-                        Image.asset(
-                          'assets/ic_line.png',
-                          height: 30,
-                        ),
-                        Image.asset(
-                          'assets/ic_location_cust.png',
-                          width: 40,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Store Location',
-                          style: secondaryTextStyle.copyWith(
-                              fontSize: 12, fontWeight: light),
-                        ),
-                        Text(
-                          'jl. cirendeu raya no. 4'.toUpperCase(),
-                          style: primaryTextStyle.copyWith(
-                            fontWeight: medium,
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Row(
+                    children: [
+                      Column(
+                        children: [
+                          Image.asset(
+                            'assets/ic_location_rest.png',
+                            width: 40,
+                          ),
+                          Image.asset(
+                            'assets/ic_line.png',
+                            height: 30,
+                          ),
+                          Image.asset(
+                            'assets/ic_location_cust.png',
+                            width: 40,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 12,
+                      ),
+                      Flexible(
+                        child: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Lokasi Toko',
+                                style: secondaryTextStyle.copyWith(
+                                    fontSize: 12, fontWeight: light),
+                              ),
+                              Text(
+                                'jl. Puspa Asri no. 25 Tangerang'.toUpperCase(),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: primaryTextStyle.copyWith(
+                                  fontWeight: medium,
+                                ),
+                              ),
+                              SizedBox(
+                                height: defaultMargin,
+                              ),
+                              Text(
+                                'Tujuan Pengiriman',
+                                style: secondaryTextStyle.copyWith(
+                                  fontSize: 12,
+                                  fontWeight: light,
+                                ),
+                              ),
+                              Text(
+                                user.address.toUpperCase(),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: primaryTextStyle.copyWith(
+                                  fontWeight: medium,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          height: defaultMargin,
-                        ),
-                        Text(
-                          'Your Address',
-                          style: secondaryTextStyle.copyWith(
-                              fontSize: 12, fontWeight: light),
-                        ),
-                        Text(
-                          user.address.toUpperCase(),
-                          style: primaryTextStyle.copyWith(
-                            fontWeight: medium,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           // Payment Summary
@@ -183,7 +194,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Payment Summary',
+                  'Detail Pembayaran',
                   style: primaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
@@ -196,11 +207,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Product Quantity',
+                      'Jumlah',
                       style: secondaryTextStyle.copyWith(fontSize: 12),
                     ),
                     Text(
-                      '${cartProvider.totalItems()} Items',
+                      '${cartProvider.totalItems()} Barang',
                       style: primaryTextStyle.copyWith(
                         fontWeight: medium,
                       ),
@@ -214,7 +225,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Product Price',
+                      'Harga Total',
                       style: secondaryTextStyle.copyWith(fontSize: 12),
                     ),
                     Text(
@@ -232,11 +243,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Shipping',
+                      'Pengiriman',
                       style: secondaryTextStyle.copyWith(fontSize: 12),
                     ),
                     Text(
-                      'Not Included (VIA Whatsapp)',
+                      '(VIA Whatsapp)',
                       style: primaryTextStyle.copyWith(
                         fontWeight: medium,
                       ),
@@ -245,6 +256,24 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 ),
                 SizedBox(
                   height: 12,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Ke Rekening',
+                      style: secondaryTextStyle.copyWith(fontSize: 12),
+                    ),
+                    Text(
+                      '7033087609 (BCA A.N. Farhan)',
+                      style: primaryTextStyle.copyWith(
+                        fontWeight: medium,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Divider(
                   thickness: 1,
@@ -301,7 +330,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           borderRadius: BorderRadius.circular(12),
                         )),
                     child: Text(
-                      'Checkout Now',
+                      'Checkout Sekarang',
                       style: primaryTextStyle.copyWith(
                         fontWeight: semiBold,
                         fontSize: 16,

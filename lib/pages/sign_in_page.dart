@@ -64,7 +64,7 @@ class _SignInPageState extends State<SignInPage> {
               height: 2,
             ),
             Text(
-              'Sign In to Continue',
+              'Silakan Login untuk Melanjutkan',
               style: subtitleTextStyle,
             ),
           ],
@@ -74,7 +74,7 @@ class _SignInPageState extends State<SignInPage> {
 
     Widget usernameInput() {
       return Container(
-        margin: EdgeInsets.only(top: 70.0),
+        margin: EdgeInsets.only(top: 50.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -193,7 +193,7 @@ class _SignInPageState extends State<SignInPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               )),
-          child: Text('Sign In',
+          child: Text('Login',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -211,7 +211,7 @@ class _SignInPageState extends State<SignInPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Forgot password? Chat our ',
+              'Lupa password? Hubungi ',
               style: subtitleTextStyle.copyWith(
                 fontSize: 12,
               ),
@@ -243,7 +243,7 @@ class _SignInPageState extends State<SignInPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Don\'t have an account? ',
+              'Belum punya akun? ',
               style: subtitleTextStyle.copyWith(
                 fontSize: 12,
               ),
@@ -253,7 +253,7 @@ class _SignInPageState extends State<SignInPage> {
                 Navigator.pushNamed(context, '/sign-up');
               },
               child: Text(
-                'Sign Up',
+                'Daftar Sekarang',
                 style: purpleTextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: medium,

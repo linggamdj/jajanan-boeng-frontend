@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jajanan_boeng/pages/cart_page.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/pages/home/chat_page.dart';
 import 'package:jajanan_boeng/pages/home/home_page.dart';
@@ -16,19 +17,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     PageProvider pageProvider = Provider.of<PageProvider>(context);
-
-    Widget cartButton() {
-      return FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/cart');
-        },
-        backgroundColor: secondaryColor,
-        child: Image.asset(
-          'assets/ic_cart.png',
-          width: 20,
-        ),
-      );
-    }
 
     Widget customBottomNav() {
       return ClipRRect(
@@ -87,7 +75,7 @@ class _MainPageState extends State<MainPage> {
                     bottom: 10,
                   ),
                   child: Image.asset(
-                    'assets/ic_wishlist.png',
+                    'assets/ic_chat.png',
                     width: 20,
                     color: pageProvider.currentIndex == 2
                         ? primaryColor
@@ -103,9 +91,25 @@ class _MainPageState extends State<MainPage> {
                     bottom: 10,
                   ),
                   child: Image.asset(
-                    'assets/ic_profile_nav.png',
-                    width: 18,
+                    'assets/ic_wishlist.png',
+                    width: 20,
                     color: pageProvider.currentIndex == 3
+                        ? primaryColor
+                        : Color(0xff808191),
+                  ),
+                ),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: Container(
+                  margin: EdgeInsets.only(
+                    top: 20,
+                    bottom: 10,
+                  ),
+                  child: Image.asset(
+                    'assets/ic_profile_nav.png',
+                    width: 20,
+                    color: pageProvider.currentIndex == 4
                         ? primaryColor
                         : Color(0xff808191),
                   ),
@@ -127,9 +131,12 @@ class _MainPageState extends State<MainPage> {
           return ChatPage();
           break;
         case 2:
-          return WishListPage();
+          return CartPage();
           break;
         case 3:
+          return WishListPage();
+          break;
+        case 4:
           return ProfilePage();
           break;
         default:
@@ -140,8 +147,6 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor:
           pageProvider.currentIndex == 0 ? backgroundColor1 : backgroundColor3,
-      floatingActionButton: cartButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: customBottomNav(),
       body: body(),
     );
