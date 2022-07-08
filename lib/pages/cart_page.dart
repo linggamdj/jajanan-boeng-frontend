@@ -152,7 +152,7 @@ class CartPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Continue to Checkout',
+                      'Lanjut ke Checkout',
                       style: primaryTextStyle.copyWith(
                         fontSize: 16,
                         fontWeight: semiBold,
