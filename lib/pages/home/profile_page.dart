@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/models/user_model.dart';
 import 'package:jajanan_boeng/providers/auth_provider.dart';
+import 'package:jajanan_boeng/providers/transaction_provider.dart';
+import 'package:jajanan_boeng/providers/logout_provider.dart';
 import 'package:jajanan_boeng/theme.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -9,6 +11,22 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
+    Provider.of<TransactionProvider>(context).getTransactions(user.token);
+    LogoutProvider logoutProvider = Provider.of<LogoutProvider>(context);
+
+    handleLogout() async {
+      await logoutProvider.logout(user.token);
+      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: primaryColor,
+          content: Text(
+            'Berhasil Logout',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
 
     Widget header() {
       return AppBar(
@@ -53,8 +71,7 @@ class ProfilePage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/sign-in', (route) => false);
+                    handleLogout();
                   },
                   child: Image.asset(
                     'assets/btn_exit.png',
@@ -122,8 +139,13 @@ class ProfilePage extends StatelessWidget {
                   'Edit Profile',
                 ),
               ),
-              menuItem(
-                'Pesanan Anda',
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/transactions');
+                },
+                child: menuItem(
+                  'Pesanan Anda',
+                ),
               ),
               GestureDetector(
                 onTap: () {
