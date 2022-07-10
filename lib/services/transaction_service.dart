@@ -1,48 +1,32 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:jajanan_boeng/models/cart_model.dart';
+import 'package:jajanan_boeng/models/transaction_model.dart';
 
 class TransactionService {
-  String baseUrl = 'http://95c1-158-140-182-101.ngrok.io/api';
+  String baseUrl = 'http://25ec-158-140-182-101.ngrok.io/api';
 
-  Future<bool> checkout(
-      String token, List<CartModel> carts, double totalPrice) async {
-    var url = '$baseUrl/checkout';
+  Future<List<TransactionModel>> getTransactions(String token) async {
+    var url = '$baseUrl/transactions';
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token,
     };
 
-    var body = jsonEncode(
-      {
-        'items': carts
-            .map(
-              (cart) => {
-                'id': cart.product.id,
-                'quantity': cart.quantity,
-              },
-            )
-            .toList(),
-        'status': "PENDING",
-        'total_price': totalPrice,
-        'shipping_price': 0,
-      },
-    );
+    var response = await http.get(Uri.parse(url), headers: headers);
 
-    print(body);
-
-    var response = await http.post(
-      Uri.parse(url),
-      headers: headers,
-      body: body,
-    );
-
-    // print(response.request);
+    print(response.body);
 
     if (response.statusCode == 200) {
-      return true;
+      List data = jsonDecode(response.body)['data']['data'];
+      List<TransactionModel> transactions = [];
+
+      for (var item in data) {
+        transactions.add(TransactionModel.fromJson(item));
+      }
+
+      return transactions;
     } else {
-      throw Exception('Gagal Checkout');
+      throw Exception('Gagal mendapatkan transaksi user');
     }
   }
 }
