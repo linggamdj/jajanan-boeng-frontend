@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/models/user_model.dart';
@@ -44,12 +42,12 @@ class _DetailChatPageState extends State<DetailChatPage> {
       return PreferredSize(
         preferredSize: Size.fromHeight(70),
         child: AppBar(
-          backgroundColor: backgroundColor1,
+          backgroundColor: primaryColor,
           centerTitle: false,
           title: Row(
             children: [
               Image.asset(
-                'assets/img_chat_online.png',
+                'assets/new_icon/admin-online.png',
                 width: 50,
               ),
               SizedBox(
@@ -60,14 +58,14 @@ class _DetailChatPageState extends State<DetailChatPage> {
                 children: [
                   Text(
                     'Shoe Store',
-                    style: primaryTextStyle.copyWith(
-                      fontWeight: medium,
+                    style: whiteTextStyle.copyWith(
+                      fontWeight: bold,
                       fontSize: 14,
                     ),
                   ),
                   Text(
                     'Online',
-                    style: secondaryTextStyle.copyWith(
+                    style: whiteTextStyle.copyWith(
                       fontWeight: light,
                       fontSize: 14,
                     ),
@@ -87,7 +85,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
         margin: EdgeInsets.only(bottom: 20),
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: backgroundColor5,
+          color: backgroundColor7,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: primaryColor,
@@ -117,7 +115,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
                     height: 2,
                   ),
                   Text(
-                    'RP ${widget.product.price}',
+                    'Rp${widget.product.price}',
                     style: priceTextStyle.copyWith(
                       fontWeight: medium,
                     ),
@@ -132,7 +130,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
                 });
               },
               child: Image.asset(
-                'assets/btn_close.png',
+                'assets/new_icon/delete.png',
                 width: 22,
               ),
             ),
@@ -161,7 +159,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
                       horizontal: 16,
                     ),
                     decoration: BoxDecoration(
-                      color: backgroundColor4,
+                      color: backgroundColor7,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Center(
@@ -169,7 +167,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
                         controller: messageController,
                         style: primaryTextStyle,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Type Message...',
+                          hintText: 'Ketikan pesan...',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -182,7 +180,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
                 GestureDetector(
                   onTap: handleAddMessage,
                   child: Image.asset(
-                    'assets/btn_send_chat.png',
+                    'assets/new_icon/send-message.png',
                     width: 45,
                   ),
                 ),
@@ -195,31 +193,32 @@ class _DetailChatPageState extends State<DetailChatPage> {
 
     Widget content() {
       return StreamBuilder<List<MessageModel>>(
-          stream: MessageService().getMessagesByUserId(authProvider.user.id),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: defaultMargin,
-                ),
-                children: snapshot.data!
-                    .map((MessageModel message) => ChatBubble(
-                          isSender: message.isFromUser,
-                          text: message.message,
-                          product: message.product,
-                        ))
-                    .toList(),
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          });
+        stream: MessageService().getMessagesByUserId(authProvider.user.id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView(
+              padding: EdgeInsets.symmetric(
+                horizontal: defaultMargin,
+              ),
+              children: snapshot.data!
+                  .map((MessageModel message) => ChatBubble(
+                        isSender: message.isFromUser,
+                        text: message.message,
+                        product: message.product,
+                      ))
+                  .toList(),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      );
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor3,
+      backgroundColor: backgroundColor8,
       appBar: header(),
       bottomNavigationBar: chatInput(),
       body: content(),

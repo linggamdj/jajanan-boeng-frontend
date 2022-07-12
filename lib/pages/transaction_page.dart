@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/providers/transaction_provider.dart';
 import 'package:jajanan_boeng/theme.dart';
 import 'package:jajanan_boeng/widgets/transaction_card.dart';
+import 'package:jajanan_boeng/providers/page_provider.dart';
 
 class TransactionPage extends StatelessWidget {
   const TransactionPage({Key? key}) : super(key: key);
@@ -11,10 +12,19 @@ class TransactionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     TransactionProvider transactionProvider =
         Provider.of<TransactionProvider>(context);
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
 
     header() {
       return AppBar(
-        backgroundColor: backgroundColor1,
+        leading: IconButton(
+          onPressed: () {
+            pageProvider.currentIndex == 0
+                ? Navigator.pushNamed(context, '/home')
+                : Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+        backgroundColor: primaryColor,
         centerTitle: true,
         title: Text(
           'Pesanan Anda',
@@ -60,12 +70,14 @@ class TransactionPage extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-      backgroundColor: backgroundColor3,
-      appBar: header(),
-      body: transactionProvider.transactions.length == 0
-          ? emptyCart()
-          : content(),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: backgroundColor7,
+        appBar: header(),
+        body: transactionProvider.transactions.length == 0
+            ? emptyCart()
+            : content(),
+      ),
     );
   }
 }
