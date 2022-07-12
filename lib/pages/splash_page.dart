@@ -1,7 +1,10 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:jajanan_boeng/pages/sign_in_page.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/providers/product_provider.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:jajanan_boeng/theme.dart';
 
 class SplashPage extends StatefulWidget {
@@ -19,23 +22,23 @@ class _SplashPageState extends State<SplashPage> {
 
   getInit() async {
     await Provider.of<ProductProvider>(context, listen: false).getProducts();
-    Navigator.pushNamed(context, '/sign-in');
+    // Timer(
+    //   Duration(seconds: 1),
+    //   () => Navigator.pushNamed(context, '/sign-in'),
+    // );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: backgroundColor1,
-      body: Center(
-        child: Container(
-          width: 130,
-          height: 150,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: AssetImage('assets/img_splash.png'),
-          )),
-        ),
+    return AnimatedSplashScreen(
+      backgroundColor: backgroundColor0,
+      splash: Image.asset(
+        'assets/new_icon/logo-boeng.png',
       ),
+      splashIconSize: 200.0,
+      nextScreen: SignInPage(),
+      splashTransition: SplashTransition.fadeTransition,
+      duration: 1500,
     );
   }
 }
