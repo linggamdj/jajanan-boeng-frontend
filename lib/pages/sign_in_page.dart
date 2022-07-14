@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class _SignInPageState extends State<SignInPage> {
         username: usernameController.text,
         password: passwordController.text,
       )) {
-        Navigator.pushNamed(context, '/home');
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -55,7 +56,7 @@ class _SignInPageState extends State<SignInPage> {
           children: [
             Text(
               'Login',
-              style: primaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 24,
                 fontWeight: semiBold,
               ),
@@ -80,7 +81,7 @@ class _SignInPageState extends State<SignInPage> {
           children: [
             Text(
               'Username',
-              style: primaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -94,14 +95,14 @@ class _SignInPageState extends State<SignInPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: backgroundColor8,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/ic_email.png',
+                      'assets/new_icon/form-username.png',
                       width: 17,
                     ),
                     SizedBox(
@@ -109,10 +110,13 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(16),
+                        ],
                         style: primaryTextStyle,
                         controller: usernameController,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Your Username',
+                          hintText: 'Username Anda',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -134,7 +138,7 @@ class _SignInPageState extends State<SignInPage> {
           children: [
             Text(
               'Password',
-              style: primaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -148,14 +152,14 @@ class _SignInPageState extends State<SignInPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: backgroundColor8,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/ic_password.png',
+                      'assets/new_icon/form-password-icon.png',
                       width: 17,
                     ),
                     SizedBox(
@@ -167,7 +171,7 @@ class _SignInPageState extends State<SignInPage> {
                         controller: passwordController,
                         obscureText: true,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Your Password',
+                          hintText: 'Password Anda',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -189,15 +193,18 @@ class _SignInPageState extends State<SignInPage> {
         child: TextButton(
           onPressed: handleSignIn,
           style: TextButton.styleFrom(
-              backgroundColor: primaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              )),
-          child: Text('Login',
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              )),
+            backgroundColor: primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(
+            'Login',
+            style: whiteTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: medium,
+            ),
+          ),
         ),
       );
     }
@@ -222,7 +229,7 @@ class _SignInPageState extends State<SignInPage> {
               },
               child: Text(
                 'Admin',
-                style: purpleTextStyle.copyWith(
+                style: orangeTextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: medium,
                 ),
@@ -254,7 +261,7 @@ class _SignInPageState extends State<SignInPage> {
               },
               child: Text(
                 'Daftar Sekarang',
-                style: purpleTextStyle.copyWith(
+                style: orangeTextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: medium,
                 ),
@@ -266,7 +273,7 @@ class _SignInPageState extends State<SignInPage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor1,
+      backgroundColor: backgroundColor7,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(

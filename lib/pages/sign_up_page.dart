@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/providers/auth_provider.dart';
 import 'package:jajanan_boeng/theme.dart';
@@ -35,24 +36,36 @@ class _SignUpPageState extends State<SignUpPage> {
       });
 
       if (passwordController.text == confirmPasswordController.text) {
-        if (await authProvider.register(
-          name: nameController.text,
-          username: usernameController.text,
-          address: addressController.text,
-          phone: phoneController.text,
-          password: passwordController.text,
-        )) {
-          Navigator.pushNamed(context, '/home');
-        } else {
+        if (passwordController.text.length <= 8) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: alertColor,
               content: Text(
-                'Username atau No. HP sudah Terdaftar!',
+                'Panjang Password Harus Minimal 8 Karakter!',
                 textAlign: TextAlign.center,
               ),
             ),
           );
+        } else {
+          if (await authProvider.register(
+            name: nameController.text,
+            username: usernameController.text,
+            address: addressController.text,
+            phone: phoneController.text,
+            password: passwordController.text,
+          )) {
+            Navigator.pushNamed(context, '/home');
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: alertColor,
+                content: Text(
+                  'Username atau No. HP sudah Terdaftar!',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          }
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -79,7 +92,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Text(
               'Daftar Akun',
-              style: primaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 24,
                 fontWeight: semiBold,
               ),
@@ -104,7 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Text(
               'Nama Lengkap',
-              style: primaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -118,14 +131,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: backgroundColor8,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/ic_profile_nav_active.png',
+                      'assets/new_icon/form-full-name.png',
                       width: 17,
                     ),
                     SizedBox(
@@ -136,7 +149,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: primaryTextStyle,
                         controller: nameController,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Your Full Name',
+                          hintText: 'Nama Lengkap Anda',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -158,7 +171,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Text(
               'Username',
-              style: primaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -172,14 +185,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: backgroundColor8,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/ic_profile_nav_active.png',
+                      'assets/new_icon/form-username.png',
                       width: 17,
                     ),
                     SizedBox(
@@ -187,10 +200,13 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(16),
+                        ],
                         style: primaryTextStyle,
                         controller: usernameController,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Your Username',
+                          hintText: 'Username Anda',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -212,7 +228,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Text(
               'Alamat Pengiriman',
-              style: primaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -226,14 +242,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: backgroundColor8,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/ic_email.png',
+                      'assets/new_icon/form-alamat-fix.png',
                       width: 17,
                     ),
                     SizedBox(
@@ -244,7 +260,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: primaryTextStyle,
                         controller: addressController,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Your Address',
+                          hintText: 'Alamat Anda',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -266,7 +282,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Text(
               'Nomor Handphone',
-              style: primaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -280,14 +296,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: backgroundColor8,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/ic_email.png',
+                      'assets/new_icon/form-phone-icon.png',
                       width: 17,
                     ),
                     SizedBox(
@@ -298,7 +314,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: primaryTextStyle,
                         controller: phoneController,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Your Number',
+                          hintText: 'Nomor HP Anda',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -320,7 +336,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Text(
               'Password',
-              style: primaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -334,14 +350,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: backgroundColor8,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/ic_password.png',
+                      'assets/new_icon/form-password-icon.png',
                       width: 17,
                     ),
                     SizedBox(
@@ -353,7 +369,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         controller: passwordController,
                         obscureText: true,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Your Password',
+                          hintText: 'Password Anda',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -375,7 +391,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Text(
               'Konfirm Password',
-              style: primaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -389,14 +405,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: backgroundColor8,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/ic_password.png',
+                      'assets/new_icon/form-password-icon.png',
                       width: 17,
                     ),
                     SizedBox(
@@ -408,7 +424,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         controller: confirmPasswordController,
                         obscureText: true,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Confirm Password',
+                          hintText: 'Konfirm Password',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -430,15 +446,18 @@ class _SignUpPageState extends State<SignUpPage> {
         child: TextButton(
           onPressed: handleSignUp,
           style: TextButton.styleFrom(
-              backgroundColor: primaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              )),
-          child: Text('Sign Up',
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              )),
+            backgroundColor: primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(
+            'Sign Up',
+            style: whiteTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: medium,
+            ),
+          ),
         ),
       );
     }
@@ -464,7 +483,7 @@ class _SignUpPageState extends State<SignUpPage> {
               },
               child: Text(
                 'Login',
-                style: purpleTextStyle.copyWith(
+                style: orangeTextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: medium,
                 ),
@@ -476,7 +495,7 @@ class _SignUpPageState extends State<SignUpPage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor1,
+      backgroundColor: backgroundColor7,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(

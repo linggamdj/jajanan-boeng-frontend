@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/models/user_model.dart';
 import 'package:jajanan_boeng/providers/auth_provider.dart';
+import 'package:jajanan_boeng/providers/page_provider.dart';
 import 'package:jajanan_boeng/theme.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -14,6 +15,7 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
 
@@ -33,7 +35,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
         addressController.text,
         phoneController.text,
       )) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: primaryColor,
+            content: Text(
+              'Edit profile berhasil! Silakan login kembali',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
         Navigator.pushNamed(context, '/');
+        pageProvider.currentIndex = 0;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -57,7 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Icons.close,
           ),
         ),
-        backgroundColor: backgroundColor1,
+        backgroundColor: primaryColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
@@ -76,7 +88,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           children: [
             Text(
               'Nama Lengkap',
-              style: secondaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 13,
               ),
             ),
@@ -87,7 +99,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 hintStyle: primaryTextStyle,
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                    color: subtitleColor,
+                    color: primaryColor,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: primaryColor,
+                    width: 2,
                   ),
                 ),
               ),
@@ -107,22 +125,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
           children: [
             Text(
               'Alamat Pengiriman',
-              style: secondaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 13,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: TextFormField(
-                style: primaryTextStyle,
-                controller: addressController,
-                decoration: InputDecoration(
-                  hintStyle: primaryTextStyle,
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: subtitleColor,
-                    ),
+            TextFormField(
+              style: primaryTextStyle,
+              controller: addressController,
+              decoration: InputDecoration(
+                hintStyle: primaryTextStyle,
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: primaryColor,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: primaryColor,
+                    width: 2,
                   ),
                 ),
               ),
@@ -142,7 +162,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           children: [
             Text(
               'Nomor Hanphone',
-              style: secondaryTextStyle.copyWith(
+              style: orangeTextStyle.copyWith(
                 fontSize: 13,
               ),
             ),
@@ -153,7 +173,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 hintStyle: primaryTextStyle,
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                    color: subtitleColor,
+                    color: primaryColor,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: primaryColor,
+                    width: 2,
                   ),
                 ),
               ),
@@ -178,7 +204,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
           child: Text(
             'Update Profile',
-            style: primaryTextStyle.copyWith(
+            style: whiteTextStyle.copyWith(
               fontSize: 16,
               fontWeight: medium,
             ),
@@ -209,6 +235,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     user.profilePhotoUrl,
                   ),
                 ),
+                border: Border.all(color: primaryColor),
+                boxShadow: [
+                  BoxShadow(
+                    color: primaryColor.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: Offset(1, 1),
+                  ),
+                ],
               ),
             ),
             nameInput(),
@@ -221,7 +256,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor3,
+      backgroundColor: backgroundColor7,
       appBar: header(),
       body: content(),
     );
