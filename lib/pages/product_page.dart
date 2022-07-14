@@ -29,7 +29,7 @@ class _ProductPageState extends State<ProductPage> {
         builder: (BuildContext context) => Container(
           width: MediaQuery.of(context).size.width - (2 * defaultMargin),
           child: AlertDialog(
-            backgroundColor: backgroundColor3,
+            backgroundColor: backgroundColor7,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
@@ -44,12 +44,12 @@ class _ProductPageState extends State<ProductPage> {
                       },
                       child: Icon(
                         Icons.close,
-                        color: primaryTextColor,
+                        color: primaryColor,
                       ),
                     ),
                   ),
                   Image.asset(
-                    'assets/ic_success.png',
+                    'assets/new_icon/success-icon.png',
                     width: 100,
                   ),
                   SizedBox(
@@ -57,7 +57,7 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   Text(
                     'Berhasil Ditambah',
-                    style: primaryTextStyle.copyWith(
+                    style: orangeTextStyle.copyWith(
                       fontSize: 18,
                       fontWeight: semiBold,
                     ),
@@ -81,16 +81,18 @@ class _ProductPageState extends State<ProductPage> {
                         Navigator.pushNamed(context, '/cart');
                       },
                       style: TextButton.styleFrom(
-                          backgroundColor: primaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          )),
+                        backgroundColor: primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
                       child: Text(
-                        'View My Chart',
-                        style: primaryTextStyle.copyWith(
+                        'Lihat Keranjang',
+                        style: whiteTextStyle.copyWith(
                           fontSize: 16,
                           fontWeight: medium,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
@@ -122,10 +124,12 @@ class _ProductPageState extends State<ProductPage> {
       return Column(
         children: [
           Container(
-            margin: EdgeInsets.only(
-              top: 20,
+            color: primaryColor,
+            padding: EdgeInsets.only(
+              top: 10,
               left: defaultMargin,
               right: defaultMargin,
+              bottom: 10,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -134,13 +138,42 @@ class _ProductPageState extends State<ProductPage> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Icon(
-                    Icons.chevron_left,
+                  child: CircleAvatar(
+                    backgroundColor: backgroundColor7,
+                    child: Icon(
+                      Icons.chevron_left,
+                      color: primaryColor,
+                    ),
                   ),
                 ),
-                Icon(
-                  Icons.shopping_bag,
-                  color: backgroundColor1,
+                Flexible(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: defaultMargin,
+                      right: defaultMargin,
+                    ),
+                    child: Text(
+                      widget.product.name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: whiteTextStyle.copyWith(
+                        fontWeight: semiBold,
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/cart');
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: backgroundColor7,
+                    child: Icon(
+                      Icons.shopping_bag,
+                      color: primaryColor,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -180,16 +213,13 @@ class _ProductPageState extends State<ProductPage> {
     }
 
     Widget content() {
-      int index = -1;
-
       return Container(
-        margin: EdgeInsets.only(top: 17),
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(24),
           ),
-          color: backgroundColor1,
+          color: backgroundColor7,
         ),
         child: Column(
           children: [
@@ -208,7 +238,7 @@ class _ProductPageState extends State<ProductPage> {
                       children: [
                         Text(
                           widget.product.name,
-                          style: primaryTextStyle.copyWith(
+                          style: orangeTextStyle.copyWith(
                             fontSize: 18,
                             fontWeight: semiBold,
                           ),
@@ -228,9 +258,9 @@ class _ProductPageState extends State<ProductPage> {
                       if (wishlistProvider.isWishlist(widget.product)) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            backgroundColor: secondaryColor,
+                            backgroundColor: primaryColor,
                             content: Text(
-                              'Has been added to the Wishlist',
+                              'Berhasil ditambahkan ke favorit',
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -240,7 +270,7 @@ class _ProductPageState extends State<ProductPage> {
                           SnackBar(
                             backgroundColor: alertColor,
                             content: Text(
-                              'Has been removed from the Wishlist',
+                              'Telah dihapus dari favorit',
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -249,8 +279,8 @@ class _ProductPageState extends State<ProductPage> {
                     },
                     child: Image.asset(
                       wishlistProvider.isWishlist(widget.product)
-                          ? 'assets/btn_love_active.png'
-                          : 'assets/btn_love.png',
+                          ? 'assets/new_icon/love-active.png'
+                          : 'assets/new_icon/love.png',
                       width: 40,
                     ),
                   ),
@@ -269,7 +299,7 @@ class _ProductPageState extends State<ProductPage> {
                 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: backgroundColor8,
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Row(
@@ -281,7 +311,7 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   Text(
                     '\RP ${widget.product.price}',
-                    style: priceTextStyle.copyWith(
+                    style: orangeTextStyle.copyWith(
                         fontSize: 16, fontWeight: semiBold),
                   ),
                 ],
@@ -300,7 +330,7 @@ class _ProductPageState extends State<ProductPage> {
                 children: [
                   Text(
                     'Deskripsi',
-                    style: primaryTextStyle.copyWith(fontWeight: medium),
+                    style: orangeTextStyle.copyWith(fontWeight: medium),
                   ),
                   SizedBox(
                     height: 12,
@@ -315,59 +345,61 @@ class _ProductPageState extends State<ProductPage> {
                 ],
               ),
             ),
-            // Buttons
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.all(
-                defaultMargin,
+          ],
+        ),
+      );
+    }
+
+    Widget customButton() {
+      return Container(
+        width: double.infinity,
+        margin: EdgeInsets.all(
+          defaultMargin,
+        ),
+        child: Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailChatPage(widget.product),
+                  ),
+                );
+              },
+              child: Container(
+                width: 54,
+                height: 54,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/new_icon/chat-button.png'),
+                  ),
+                ),
               ),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailChatPage(widget.product),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      width: 54,
-                      height: 54,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/btn_chat.png'),
-                        ),
-                      ),
+            ),
+            SizedBox(
+              width: 16,
+            ),
+            Expanded(
+              child: Container(
+                height: 54,
+                child: TextButton(
+                  onPressed: () {
+                    cartProvider.addCart(widget.product);
+                    showSuccessDialog();
+                  },
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
+                    backgroundColor: primaryColor,
                   ),
-                  SizedBox(
-                    width: 16,
+                  child: Text(
+                    'Tambah ke Keranjang',
+                    style: whiteTextStyle.copyWith(
+                        fontSize: 16, fontWeight: semiBold),
                   ),
-                  Expanded(
-                    child: Container(
-                      height: 54,
-                      child: TextButton(
-                        onPressed: () {
-                          cartProvider.addCart(widget.product);
-                          showSuccessDialog();
-                        },
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          backgroundColor: primaryColor,
-                        ),
-                        child: Text(
-                          'Tambah ke Keranjang',
-                          style: primaryTextStyle.copyWith(
-                              fontSize: 16, fontWeight: semiBold),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ],
@@ -376,7 +408,8 @@ class _ProductPageState extends State<ProductPage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor6,
+      backgroundColor: backgroundColor7,
+      bottomNavigationBar: customButton(),
       body: ListView(
         children: [
           header(),
