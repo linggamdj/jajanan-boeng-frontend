@@ -39,7 +39,7 @@ class TransactionPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/ic_cart_empty.png',
+              'assets/new_icon/cart-icon.png',
               width: 80,
             ),
             SizedBox(
