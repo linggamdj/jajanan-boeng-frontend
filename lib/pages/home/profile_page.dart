@@ -33,8 +33,7 @@ class ProfilePage extends StatelessWidget {
     }
 
     launchWhatsapp() async {
-      // var number = '6285883108842';
-      var number = "6282111073636";
+      var number = '6285883108842';
       var text =
           "Halo%20Jajanan%20Bo'eng,%20nama%20saya%20${user.name}%20ingin%20melakukan%20konfirmasi%20pembayaran.%0aBerikut%20bukti%20screenshot%20transfernya%20:%20";
       var url = Uri.parse("whatsapp://send?phone=$number&text=$text");
@@ -46,6 +45,23 @@ class ProfilePage extends StatelessWidget {
             backgroundColor: alertColor,
             content: Text(
               'Anda Tidak Memiliki Whatsapp! Silakan Install Dahulu.',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+    }
+
+    launchInstagram() async {
+      var url = Uri.parse("https://www.instagram.com/jajananboeng/");
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url, mode: LaunchMode.externalApplication);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: alertColor,
+            content: Text(
+              'Sedang dalam Perbaikan',
               textAlign: TextAlign.center,
             ),
           ),
@@ -198,11 +214,13 @@ class ProfilePage extends StatelessWidget {
                   'Konfirmasi Pesanan (WA)',
                 ),
               ),
-              menuItem(
-                'Privacy & Policy',
-              ),
-              menuItem(
-                'Term of Service',
+              GestureDetector(
+                onTap: () {
+                  launchInstagram();
+                },
+                child: menuItem(
+                  'Follow Instagram Kami',
+                ),
               ),
               menuItem(
                 'Beri Penilaian',
