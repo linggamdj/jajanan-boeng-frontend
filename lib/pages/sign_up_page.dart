@@ -36,7 +36,18 @@ class _SignUpPageState extends State<SignUpPage> {
       });
 
       if (passwordController.text == confirmPasswordController.text) {
-        if (passwordController.text.length <= 8) {
+        if (usernameController.text.length < 6) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: alertColor,
+              content: Text(
+                'Panjang Username Harus Minimal 6 Karakter!',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        }
+        if (passwordController.text.length < 8) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: alertColor,
