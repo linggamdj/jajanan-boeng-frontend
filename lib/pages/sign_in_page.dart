@@ -4,6 +4,7 @@ import 'package:jajanan_boeng/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:jajanan_boeng/theme.dart';
 import 'package:jajanan_boeng/widgets/loading_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -46,6 +47,27 @@ class _SignInPageState extends State<SignInPage> {
       setState(() {
         isLoading = false;
       });
+    }
+
+    launchWhatsapp() async {
+      // var number = '6285883108842';
+      var number = "6282111073636";
+      var text =
+          "Halo%20Jajanan%20Bo'eng,%20saya%20ingin%20melakukan%20reset%20password.%0aUsername%20saya%20adalah%20:%20";
+      var url = Uri.parse("whatsapp://send?phone=$number&text=$text");
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: alertColor,
+            content: Text(
+              'Anda Tidak Memiliki Whatsapp! Silakan Install Dahulu.',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
     }
 
     Widget header() {
@@ -225,7 +247,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/sign-up');
+                launchWhatsapp();
               },
               child: Text(
                 'Admin',

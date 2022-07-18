@@ -4,6 +4,8 @@ import 'package:jajanan_boeng/models/user_model.dart';
 import 'package:jajanan_boeng/providers/auth_provider.dart';
 import 'package:jajanan_boeng/providers/transaction_provider.dart';
 import 'package:jajanan_boeng/providers/logout_provider.dart';
+import 'package:jajanan_boeng/providers/page_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:jajanan_boeng/theme.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -13,6 +15,7 @@ class ProfilePage extends StatelessWidget {
     UserModel user = authProvider.user;
     Provider.of<TransactionProvider>(context).getTransactions(user.token);
     LogoutProvider logoutProvider = Provider.of<LogoutProvider>(context);
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
 
     handleLogout() async {
       await logoutProvider.logout(user.token);
@@ -26,13 +29,35 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       );
+      pageProvider.currentIndex = 0;
+    }
+
+    launchWhatsapp() async {
+      // var number = '6285883108842';
+      var number = "6282111073636";
+      var text =
+          "Halo%20Jajanan%20Bo'eng,%20nama%20saya%20${user.name}%20ingin%20melakukan%20konfirmasi%20pembayaran.%0aBerikut%20bukti%20screenshot%20transfernya%20:%20";
+      var url = Uri.parse("whatsapp://send?phone=$number&text=$text");
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: alertColor,
+            content: Text(
+              'Anda Tidak Memiliki Whatsapp! Silakan Install Dahulu.',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
     }
 
     Widget header() {
       return AppBar(
-        backgroundColor: backgroundColor1,
+        backgroundColor: primaryColor,
         automaticallyImplyLeading: false,
-        elevation: 0,
+        elevation: 1,
         flexibleSpace: SafeArea(
           child: Container(
             padding: EdgeInsets.all(
@@ -55,14 +80,14 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       Text(
                         '${user.name}',
-                        style: primaryTextStyle.copyWith(
+                        style: whiteTextStyle.copyWith(
                           fontSize: 24,
                           fontWeight: semiBold,
                         ),
                       ),
                       Text(
                         '@${user.username}',
-                        style: subtitleTextStyle.copyWith(
+                        style: whiteTextStyle.copyWith(
                           fontSize: 16,
                         ),
                       ),
@@ -74,7 +99,7 @@ class ProfilePage extends StatelessWidget {
                     handleLogout();
                   },
                   child: Image.asset(
-                    'assets/btn_exit.png',
+                    'assets/new_icon/logout-icon.png',
                     width: 20,
                   ),
                 ),
@@ -95,13 +120,13 @@ class ProfilePage extends StatelessWidget {
           children: [
             Text(
               text,
-              style: secondaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 13,
               ),
             ),
             Icon(
               Icons.chevron_right,
-              color: primaryTextColor,
+              color: backgroundColor5,
             ),
           ],
         ),
@@ -116,7 +141,7 @@ class ProfilePage extends StatelessWidget {
             horizontal: defaultMargin,
           ),
           decoration: BoxDecoration(
-            color: backgroundColor3,
+            color: backgroundColor7,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +151,7 @@ class ProfilePage extends StatelessWidget {
               ),
               Text(
                 'Account',
-                style: primaryTextStyle.copyWith(
+                style: orangeTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semiBold,
                 ),
@@ -160,13 +185,18 @@ class ProfilePage extends StatelessWidget {
               ),
               Text(
                 'General',
-                style: primaryTextStyle.copyWith(
+                style: orangeTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semiBold,
                 ),
               ),
-              menuItem(
-                'Konfirmasi Pesanan (WA)',
+              GestureDetector(
+                onTap: () {
+                  launchWhatsapp();
+                },
+                child: menuItem(
+                  'Konfirmasi Pesanan (WA)',
+                ),
               ),
               menuItem(
                 'Privacy & Policy',
