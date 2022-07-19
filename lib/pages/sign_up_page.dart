@@ -46,36 +46,37 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
           );
-        }
-        if (passwordController.text.length < 8) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: alertColor,
-              content: Text(
-                'Panjang Password Harus Minimal 8 Karakter!',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          );
         } else {
-          if (await authProvider.register(
-            name: nameController.text,
-            username: usernameController.text,
-            address: addressController.text,
-            phone: phoneController.text,
-            password: passwordController.text,
-          )) {
-            Navigator.pushNamed(context, '/home');
-          } else {
+          if (passwordController.text.length < 8) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: alertColor,
                 content: Text(
-                  'Username atau No. HP sudah Terdaftar!',
+                  'Panjang Password Harus Minimal 8 Karakter!',
                   textAlign: TextAlign.center,
                 ),
               ),
             );
+          } else {
+            if (await authProvider.register(
+              name: nameController.text,
+              username: usernameController.text,
+              address: addressController.text,
+              phone: phoneController.text,
+              password: passwordController.text,
+            )) {
+              Navigator.pushNamed(context, '/home');
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: alertColor,
+                  content: Text(
+                    'Username atau No. HP sudah Terdaftar!',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            }
           }
         }
       } else {
@@ -322,6 +323,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(13),
+                        ],
+                        keyboardType: TextInputType.number,
                         style: primaryTextStyle,
                         controller: phoneController,
                         decoration: InputDecoration.collapsed(
