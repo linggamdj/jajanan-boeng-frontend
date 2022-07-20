@@ -9,7 +9,7 @@ class ChatBubble extends StatelessWidget {
   final ProductModel product;
 
   ChatBubble({
-    this.isSender = false,
+    required this.isSender,
     this.text = '',
     required this.product,
   });
@@ -23,12 +23,12 @@ class ChatBubble extends StatelessWidget {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(isSender ? 12 : 0),
-            topRight: Radius.circular(!isSender ? 12 : 0),
+            topLeft: Radius.circular(!isSender ? 12 : 0),
+            topRight: Radius.circular(isSender ? 12 : 0),
             bottomLeft: Radius.circular(12),
             bottomRight: Radius.circular(12),
           ),
-          color: isSender ? backgroundColor5 : backgroundColor4,
+          color: backgroundColor7,
         ),
         child: Column(
           children: [
@@ -56,7 +56,7 @@ class ChatBubble extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        'RP ${product.price}',
+                        'Rp${product.price}',
                         style: priceTextStyle.copyWith(
                           fontWeight: medium,
                         ),
@@ -70,6 +70,7 @@ class ChatBubble extends StatelessWidget {
               height: 20,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 OutlinedButton(
                   onPressed: () {},
@@ -82,8 +83,8 @@ class ChatBubble extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Add to Cart',
-                    style: purpleTextStyle,
+                    'Detail Produk',
+                    style: orangeTextStyle,
                   ),
                 ),
                 SizedBox(
@@ -98,9 +99,9 @@ class ChatBubble extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Buy Now',
+                    'Beli',
                     style: GoogleFonts.poppins(
-                      color: backgroundColor5,
+                      color: backgroundColor7,
                       fontWeight: medium,
                     ),
                   ),
@@ -119,12 +120,12 @@ class ChatBubble extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment:
-            isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            !isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           product is UninitializedProductModel ? SizedBox() : productPreview(),
           Row(
             mainAxisAlignment:
-                isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+                !isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
               Flexible(
                 child: Container(
@@ -137,16 +138,16 @@ class ChatBubble extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(isSender ? 12 : 0),
-                      topRight: Radius.circular(!isSender ? 12 : 0),
+                      topLeft: Radius.circular(!isSender ? 12 : 0),
+                      topRight: Radius.circular(isSender ? 12 : 0),
                       bottomLeft: Radius.circular(12),
                       bottomRight: Radius.circular(12),
                     ),
-                    color: isSender ? backgroundColor5 : backgroundColor4,
+                    color: isSender ? primaryColor : backgroundColor7,
                   ),
                   child: Text(
                     text,
-                    style: primaryTextStyle,
+                    style: isSender ? whiteTextStyle : primaryTextStyle,
                   ),
                 ),
               ),

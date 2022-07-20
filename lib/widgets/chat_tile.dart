@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:jajanan_boeng/providers/auth_provider.dart';
+import 'package:jajanan_boeng/models/user_model.dart';
 import 'package:jajanan_boeng/models/message_model.dart';
 import 'package:jajanan_boeng/models/product_model.dart';
 import 'package:jajanan_boeng/pages/detail_chat_page.dart';
@@ -10,6 +13,9 @@ class ChatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -29,10 +35,18 @@ class ChatTile extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset(
-                  'assets/ic_logo.png',
-                  width: 34,
-                ),
+                user.roles == 'USER'
+                    ? Image.asset(
+                        'assets/new_icon/admin.png',
+                        width: 34,
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          message.userImage,
+                          width: 34,
+                        ),
+                      ),
                 SizedBox(
                   width: 12,
                 ),
@@ -41,7 +55,7 @@ class ChatTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Admin',
+                        user.roles == 'USER' ? 'Penjual' : message.userName,
                         style: primaryTextStyle.copyWith(
                           fontSize: 15,
                         ),
@@ -69,9 +83,7 @@ class ChatTile extends StatelessWidget {
             ),
             Divider(
               thickness: 1,
-              color: Color(
-                0xff2B2939,
-              ),
+              color: primaryColor,
             )
           ],
         ),

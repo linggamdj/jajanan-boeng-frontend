@@ -6,19 +6,10 @@ import 'package:jajanan_boeng/models/user_model.dart';
 class MessageService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Stream<List<MessageModel>> getMessages(String data) {
-    bool userRole;
-
-    if (data == 'USER') {
-      userRole = true;
-    } else {
-      userRole = false;
-    }
-
+  Stream<List<MessageModel>> getMessages() {
     try {
       return firestore
           .collection('messages')
-          .where('isFromUser', isEqualTo: userRole)
           .snapshots()
           .map((QuerySnapshot list) {
         var result = list.docs.map<MessageModel>((DocumentSnapshot message) {
@@ -38,11 +29,11 @@ class MessageService {
     }
   }
 
-  Stream<List<MessageModel>> getMessagesByUserId(int userId) {
+  Stream<List<MessageModel>> getMessagesByUserId() {
     try {
       return firestore
           .collection('messages')
-          .where('userId', isEqualTo: userId)
+          // .where('userId', isEqualTo: userId)
           .snapshots()
           .map((QuerySnapshot list) {
         var result = list.docs.map<MessageModel>((DocumentSnapshot message) {

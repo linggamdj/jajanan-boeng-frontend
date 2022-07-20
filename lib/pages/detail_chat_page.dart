@@ -39,42 +39,58 @@ class _DetailChatPageState extends State<DetailChatPage> {
     }
 
     header() {
-      return PreferredSize(
-        preferredSize: Size.fromHeight(70),
-        child: AppBar(
-          backgroundColor: primaryColor,
-          centerTitle: false,
-          title: Row(
-            children: [
-              Image.asset(
-                'assets/new_icon/admin-online.png',
-                width: 50,
-              ),
-              SizedBox(
-                width: 12,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      return StreamBuilder<List<MessageModel>>(
+        stream: MessageService().getMessages(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return AppBar(
+              backgroundColor: primaryColor,
+              centerTitle: false,
+              title: Row(
                 children: [
-                  Text(
-                    'Shoe Store',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: bold,
-                      fontSize: 14,
-                    ),
+                  user.roles == 'ADMIN'
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.network(
+                            snapshot.data![snapshot.data!.length - 1].userImage,
+                            width: 50,
+                          ),
+                        )
+                      : Image.asset(
+                          'assets/new_icon/admin-online.png',
+                          width: 50,
+                        ),
+                  SizedBox(
+                    width: 12,
                   ),
-                  Text(
-                    'Online',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: light,
-                      fontSize: 14,
-                    ),
-                  )
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        user.roles == 'ADMIN'
+                            ? snapshot.data![snapshot.data!.length - 1].userName
+                            : 'Penjual',
+                        style: whiteTextStyle.copyWith(
+                          fontWeight: bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                      Text(
+                        'Online',
+                        style: whiteTextStyle.copyWith(
+                          fontWeight: light,
+                          fontSize: 14,
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
-            ],
-          ),
-        ),
+            );
+          } else {
+            return SizedBox();
+          }
+        },
       );
     }
 
@@ -191,9 +207,9 @@ class _DetailChatPageState extends State<DetailChatPage> {
       );
     }
 
-    Widget content() {
+    Widget contentForUser() {
       return StreamBuilder<List<MessageModel>>(
-        stream: MessageService().getMessagesByUserId(authProvider.user.id),
+        stream: MessageService().getMessagesByUserId(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView(
@@ -201,11 +217,41 @@ class _DetailChatPageState extends State<DetailChatPage> {
                 horizontal: defaultMargin,
               ),
               children: snapshot.data!
-                  .map((MessageModel message) => ChatBubble(
-                        isSender: message.isFromUser,
-                        text: message.message,
-                        product: message.product,
-                      ))
+                  .map(
+                    (MessageModel message) => ChatBubble(
+                      isSender: !message.isFromUser,
+                      text: message.message,
+                      product: message.product,
+                    ),
+                  )
+                  .toList(),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      );
+    }
+
+    Widget contentForAdmin() {
+      return StreamBuilder<List<MessageModel>>(
+        stream: MessageService().getMessages(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView(
+              padding: EdgeInsets.symmetric(
+                horizontal: defaultMargin,
+              ),
+              children: snapshot.data!
+                  .map(
+                    (MessageModel message) => ChatBubble(
+                      isSender: message.isFromUser,
+                      text: message.message,
+                      product: message.product,
+                    ),
+                  )
                   .toList(),
             );
           } else {
@@ -219,9 +265,12 @@ class _DetailChatPageState extends State<DetailChatPage> {
 
     return Scaffold(
       backgroundColor: backgroundColor8,
-      appBar: header(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70),
+        child: header(),
+      ),
       bottomNavigationBar: chatInput(),
-      body: content(),
+      body: user.roles == 'ADMIN' ? contentForAdmin() : contentForUser(),
     );
   }
 }

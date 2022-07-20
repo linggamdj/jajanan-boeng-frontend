@@ -20,7 +20,7 @@ class ChatPage extends StatelessWidget {
     Widget header() {
       return AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: backgroundColor1,
+        backgroundColor: primaryColor,
         centerTitle: true,
         title: Text(
           user.roles == 'USER' ? 'Chat Penjual' : 'Chat Pelanggan',
@@ -32,30 +32,34 @@ class ChatPage extends StatelessWidget {
     Widget emptyChat() {
       return Expanded(
         child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: defaultMargin,
+          ),
           width: double.infinity,
-          color: backgroundColor3,
+          color: backgroundColor7,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/ic_headset.png',
+                'assets/new_icon/headset.png',
                 width: 80,
               ),
               SizedBox(
                 height: 20,
               ),
               Text(
-                'Kamu belum pernah mengobrol dengan Penjual',
+                'Kamu belum pernah melakukan chat',
                 style: primaryTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: medium,
                 ),
+                textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 20,
               ),
               Text(
-                'Silakan memulai ngobrol dengan memilih salah satu produk, kemudian klik logo ngobrol :)',
+                'Silakan memulai chat dengan memilih salah satu produk, kemudian klik logo chat',
                 textAlign: TextAlign.center,
                 style: secondaryTextStyle,
               ),
@@ -80,7 +84,7 @@ class ChatPage extends StatelessWidget {
                   ),
                   child: Text(
                     'Cari Produk',
-                    style: primaryTextStyle.copyWith(
+                    style: whiteTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: medium,
                     ),
@@ -93,9 +97,9 @@ class ChatPage extends StatelessWidget {
       );
     }
 
-    Widget content() {
+    Widget contentForUser() {
       return StreamBuilder<List<MessageModel>>(
-        stream: MessageService().getMessages(user.roles),
+        stream: MessageService().getMessagesByUserId(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.length == 0) {
@@ -105,7 +109,37 @@ class ChatPage extends StatelessWidget {
             return Expanded(
               child: Container(
                 width: double.infinity,
-                color: backgroundColor3,
+                color: backgroundColor7,
+                child: ListView(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: defaultMargin,
+                  ),
+                  children: [
+                    ChatTile(snapshot.data![snapshot.data!.length - 1]),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return emptyChat();
+          }
+        },
+      );
+    }
+
+    Widget contentForAdmin() {
+      return StreamBuilder<List<MessageModel>>(
+        stream: MessageService().getMessages(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data!.length == 0) {
+              return emptyChat();
+            }
+
+            return Expanded(
+              child: Container(
+                width: double.infinity,
+                color: backgroundColor7,
                 child: ListView(
                   padding: EdgeInsets.symmetric(
                     horizontal: defaultMargin,
@@ -126,7 +160,7 @@ class ChatPage extends StatelessWidget {
     return Column(
       children: [
         header(),
-        content(),
+        user.roles == 'USER' ? contentForUser() : contentForAdmin(),
       ],
     );
   }
