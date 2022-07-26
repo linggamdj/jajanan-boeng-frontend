@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/models/user_model.dart';
 import 'package:jajanan_boeng/providers/auth_provider.dart';
 import 'package:jajanan_boeng/providers/product_provider.dart';
+import 'package:jajanan_boeng/providers/transaction_provider.dart';
 import 'package:jajanan_boeng/theme.dart';
 import 'package:jajanan_boeng/widgets/product_card.dart';
 import 'package:jajanan_boeng/widgets/product_tile.dart';
@@ -13,13 +14,22 @@ class HomePage extends StatelessWidget {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
+    Provider.of<TransactionProvider>(context).getTransactions(user.token);
 
     Widget header() {
       return Container(
-        margin: EdgeInsets.only(
+        padding: EdgeInsets.only(
           top: defaultMargin,
           left: defaultMargin,
           right: defaultMargin,
+          bottom: defaultMargin,
+        ),
+        decoration: BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
         ),
         child: Row(
           children: [
@@ -29,14 +39,14 @@ class HomePage extends StatelessWidget {
                 children: [
                   Text(
                     'Selamat datang,\n${user.name}!',
-                    style: primaryTextStyle.copyWith(
+                    style: whiteTextStyle.copyWith(
                       fontSize: 24,
                       fontWeight: semiBold,
                     ),
                   ),
                   Text(
                     '@${user.username}',
-                    style: subtitleTextStyle.copyWith(
+                    style: whiteTextStyle.copyWith(
                       fontSize: 16,
                     ),
                   )
@@ -47,120 +57,18 @@ class HomePage extends StatelessWidget {
               width: 54,
               height: 54,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      user.profilePhotoUrl,
-                    ),
-                  )),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    user.profilePhotoUrl,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
       );
     }
-
-    // Widget categories() {
-    //   return Container(
-    //     margin: EdgeInsets.only(
-    //       top: defaultMargin,
-    //     ),
-    //     child: SingleChildScrollView(
-    //       scrollDirection: Axis.horizontal,
-    //       child: Row(
-    //         children: [
-    //           SizedBox(
-    //             width: defaultMargin,
-    //           ),
-    //           Container(
-    //             padding: EdgeInsets.symmetric(
-    //               horizontal: 12,
-    //               vertical: 10,
-    //             ),
-    //             margin: EdgeInsets.only(
-    //               right: 16,
-    //             ),
-    //             decoration: BoxDecoration(
-    //               borderRadius: BorderRadius.circular(12),
-    //               color: primaryColor,
-    //             ),
-    //             child: Text(
-    //               'All Shoes',
-    //               style: primaryTextStyle.copyWith(
-    //                 fontWeight: medium,
-    //               ),
-    //             ),
-    //           ),
-    //           Container(
-    //             padding: EdgeInsets.symmetric(
-    //               horizontal: 12,
-    //               vertical: 10,
-    //             ),
-    //             margin: EdgeInsets.only(
-    //               right: 16,
-    //             ),
-    //             decoration: BoxDecoration(
-    //               borderRadius: BorderRadius.circular(12),
-    //               border: Border.all(
-    //                 color: subtitleColor,
-    //               ),
-    //               color: transparentColor,
-    //             ),
-    //             child: Text(
-    //               'Running',
-    //               style: subtitleTextStyle.copyWith(
-    //                 fontWeight: medium,
-    //               ),
-    //             ),
-    //           ),
-    //           Container(
-    //             padding: EdgeInsets.symmetric(
-    //               horizontal: 12,
-    //               vertical: 10,
-    //             ),
-    //             margin: EdgeInsets.only(
-    //               right: 16,
-    //             ),
-    //             decoration: BoxDecoration(
-    //               borderRadius: BorderRadius.circular(12),
-    //               border: Border.all(
-    //                 color: subtitleColor,
-    //               ),
-    //               color: transparentColor,
-    //             ),
-    //             child: Text(
-    //               'Running',
-    //               style: subtitleTextStyle.copyWith(
-    //                 fontWeight: medium,
-    //               ),
-    //             ),
-    //           ),
-    //           Container(
-    //             padding: EdgeInsets.symmetric(
-    //               horizontal: 12,
-    //               vertical: 10,
-    //             ),
-    //             margin: EdgeInsets.only(
-    //               right: 16,
-    //             ),
-    //             decoration: BoxDecoration(
-    //               borderRadius: BorderRadius.circular(12),
-    //               border: Border.all(
-    //                 color: subtitleColor,
-    //               ),
-    //               color: transparentColor,
-    //             ),
-    //             child: Text(
-    //               'Running',
-    //               style: subtitleTextStyle.copyWith(
-    //                 fontWeight: medium,
-    //               ),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   );
-    // }
 
     Widget popularProductsTitle() {
       return Container(
@@ -171,7 +79,7 @@ class HomePage extends StatelessWidget {
         ),
         child: Text(
           "Produk yang Paling Laris!",
-          style: primaryTextStyle.copyWith(
+          style: orangeTextStyle.copyWith(
             fontSize: 22,
             fontWeight: semiBold,
           ),
@@ -213,7 +121,7 @@ class HomePage extends StatelessWidget {
         ),
         child: Text(
           "Produk Baru",
-          style: primaryTextStyle.copyWith(
+          style: orangeTextStyle.copyWith(
             fontSize: 22,
             fontWeight: semiBold,
           ),
@@ -239,7 +147,6 @@ class HomePage extends StatelessWidget {
     return ListView(
       children: [
         header(),
-        // categories(),
         popularProductsTitle(),
         popularProducts(),
         newArrivalsTitle(),

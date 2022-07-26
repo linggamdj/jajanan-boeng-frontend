@@ -13,10 +13,10 @@ class WishListPage extends StatelessWidget {
 
     Widget header() {
       return AppBar(
-        backgroundColor: backgroundColor1,
+        backgroundColor: primaryColor,
         centerTitle: true,
         title: Text(
-          'Produk Favorit Mu',
+          'Produk Favorit Anda',
         ),
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -27,12 +27,12 @@ class WishListPage extends StatelessWidget {
       return Expanded(
         child: Container(
           width: double.infinity,
-          color: backgroundColor3,
+          color: backgroundColor7,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/img_wishlist.png',
+                'assets/new_icon/love-icon.png',
                 width: 74,
               ),
               SizedBox(
@@ -72,7 +72,7 @@ class WishListPage extends StatelessWidget {
                       )),
                   child: Text(
                     'Cari Produk',
-                    style: primaryTextStyle.copyWith(
+                    style: whiteTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: medium,
                     ),
@@ -88,7 +88,7 @@ class WishListPage extends StatelessWidget {
     Widget content() {
       return Expanded(
         child: Container(
-          color: backgroundColor3,
+          color: backgroundColor7,
           child: ListView(
             padding: EdgeInsets.symmetric(
               horizontal: defaultMargin,

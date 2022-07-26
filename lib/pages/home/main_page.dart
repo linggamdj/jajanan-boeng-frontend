@@ -27,96 +27,108 @@ class _MainPageState extends State<MainPage> {
           shape: CircularNotchedRectangle(),
           notchMargin: 16,
           clipBehavior: Clip.antiAlias,
-          child: BottomNavigationBar(
-            backgroundColor: backgroundColor4,
-            currentIndex: pageProvider.currentIndex,
-            onTap: (value) {
-              print(value);
-              pageProvider.currentIndex = value;
-            },
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: EdgeInsets.only(
-                    top: 20,
-                    bottom: 10,
-                  ),
-                  child: Image.asset(
-                    'assets/btn_home.png',
-                    width: 21,
-                    color: pageProvider.currentIndex == 0
-                        ? primaryColor
-                        : Color(0xff808191),
-                  ),
+          child: Container(
+            decoration: BoxDecoration(
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: backgroundColor1,
+                  spreadRadius: 100,
+                  blurRadius: 100,
                 ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: EdgeInsets.only(
-                    top: 20,
-                    bottom: 10,
+              ],
+            ),
+            child: BottomNavigationBar(
+              backgroundColor: Color(0xffFDFDFD),
+              currentIndex: pageProvider.currentIndex,
+              onTap: (value) {
+                print(value);
+                pageProvider.currentIndex = value;
+              },
+              type: BottomNavigationBarType.fixed,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Container(
+                    margin: EdgeInsets.only(
+                      top: 10,
+                      bottom: 10,
+                    ),
+                    child: Image.asset(
+                      'assets/btn_home.png',
+                      width: 21,
+                      color: pageProvider.currentIndex == 0
+                          ? primaryColor
+                          : Color(0xff808191),
+                    ),
                   ),
-                  child: Image.asset(
-                    'assets/ic_chat.png',
-                    width: 20,
-                    color: pageProvider.currentIndex == 1
-                        ? primaryColor
-                        : Color(0xff808191),
-                  ),
+                  label: 'Home',
                 ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: EdgeInsets.only(
-                    top: 20,
-                    bottom: 10,
+                BottomNavigationBarItem(
+                  icon: Container(
+                    margin: EdgeInsets.only(
+                      top: 10,
+                      bottom: 10,
+                    ),
+                    child: Image.asset(
+                      'assets/ic_chat.png',
+                      width: 20,
+                      color: pageProvider.currentIndex == 1
+                          ? primaryColor
+                          : Color(0xff808191),
+                    ),
                   ),
-                  child: Image.asset(
-                    'assets/ic_chat.png',
-                    width: 20,
-                    color: pageProvider.currentIndex == 2
-                        ? primaryColor
-                        : Color(0xff808191),
-                  ),
+                  label: 'Pesan',
                 ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: EdgeInsets.only(
-                    top: 20,
-                    bottom: 10,
+                BottomNavigationBarItem(
+                  icon: Container(
+                    margin: EdgeInsets.only(
+                      top: 8,
+                      bottom: 8,
+                    ),
+                    child: Image.asset(
+                      'assets/new_icon/ic_cart_fix.png',
+                      width: 20,
+                      color: pageProvider.currentIndex == 2
+                          ? primaryColor
+                          : Color(0xff808191),
+                    ),
                   ),
-                  child: Image.asset(
-                    'assets/ic_wishlist.png',
-                    width: 20,
-                    color: pageProvider.currentIndex == 3
-                        ? primaryColor
-                        : Color(0xff808191),
-                  ),
+                  label: 'Keranjang',
                 ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: EdgeInsets.only(
-                    top: 20,
-                    bottom: 10,
+                BottomNavigationBarItem(
+                  icon: Container(
+                    margin: EdgeInsets.only(
+                      top: 10,
+                      bottom: 10,
+                    ),
+                    child: Image.asset(
+                      'assets/ic_wishlist.png',
+                      width: 20,
+                      color: pageProvider.currentIndex == 3
+                          ? primaryColor
+                          : Color(0xff808191),
+                    ),
                   ),
-                  child: Image.asset(
-                    'assets/ic_profile_nav.png',
-                    width: 20,
-                    color: pageProvider.currentIndex == 4
-                        ? primaryColor
-                        : Color(0xff808191),
-                  ),
+                  label: 'Favorit',
                 ),
-                label: '',
-              ),
-            ],
+                BottomNavigationBarItem(
+                  icon: Container(
+                    margin: EdgeInsets.only(
+                      top: 10,
+                      bottom: 10,
+                    ),
+                    child: Image.asset(
+                      'assets/ic_profile_nav.png',
+                      width: 20,
+                      color: pageProvider.currentIndex == 4
+                          ? primaryColor
+                          : Color(0xff808191),
+                    ),
+                  ),
+                  label: 'Profil',
+                ),
+              ],
+              selectedItemColor: primaryColor,
+            ),
           ),
         ),
       );
@@ -145,8 +157,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Scaffold(
-      backgroundColor:
-          pageProvider.currentIndex == 0 ? backgroundColor1 : backgroundColor3,
+      backgroundColor: backgroundColor7,
       bottomNavigationBar: customBottomNav(),
       body: body(),
     );
