@@ -4,7 +4,7 @@ import 'package:jajanan_boeng/services/checkout_service.dart';
 
 class CheckoutProvider with ChangeNotifier {
   Future<bool> checkout(
-      String token, List<CartModel> carts, double totalPrice) async {
+      String token, List<CartModel> carts, int totalPrice) async {
     try {
       if (await CheckoutService().checkout(token, carts, totalPrice)) {
         return true;
