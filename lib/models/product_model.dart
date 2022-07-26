@@ -4,7 +4,7 @@ import 'package:jajanan_boeng/models/gallery_model.dart';
 class ProductModel {
   late int id;
   late String name;
-  late double price;
+  late int price;
   late String description;
   late String tags;
   late CategoryModel category;
@@ -27,7 +27,7 @@ class ProductModel {
   ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    price = double.parse(json['price'].toString());
+    price = int.parse(json['price'].toString());
     description = json['description'];
     tags = json['tags'];
     category = CategoryModel.fromJson(json['category']);
