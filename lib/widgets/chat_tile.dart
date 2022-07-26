@@ -8,8 +8,8 @@ import 'package:jajanan_boeng/pages/detail_chat_page.dart';
 import 'package:jajanan_boeng/theme.dart';
 
 class ChatTile extends StatelessWidget {
-  final MessageModel message;
-  ChatTile(this.message);
+  final MessageModel message, userMessage;
+  ChatTile(this.message, this.userMessage);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class ChatTile extends StatelessWidget {
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: Image.network(
-                          message.userImage,
+                          userMessage.userImage,
                           width: 34,
                         ),
                       ),
@@ -55,7 +55,7 @@ class ChatTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        user.roles == 'USER' ? 'Penjual' : message.userName,
+                        user.roles == 'USER' ? 'Penjual' : userMessage.userName,
                         style: primaryTextStyle.copyWith(
                           fontSize: 15,
                         ),

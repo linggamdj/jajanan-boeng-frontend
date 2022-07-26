@@ -52,7 +52,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(50),
                           child: Image.network(
-                            snapshot.data![snapshot.data!.length - 1].userImage,
+                            snapshot.data![0].userImage,
                             width: 50,
                           ),
                         )
@@ -68,7 +68,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
                     children: [
                       Text(
                         user.roles == 'ADMIN'
-                            ? snapshot.data![snapshot.data!.length - 1].userName
+                            ? snapshot.data![0].userName
                             : 'Penjual',
                         style: whiteTextStyle.copyWith(
                           fontWeight: bold,

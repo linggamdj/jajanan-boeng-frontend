@@ -115,7 +115,8 @@ class ChatPage extends StatelessWidget {
                     horizontal: defaultMargin,
                   ),
                   children: [
-                    ChatTile(snapshot.data![snapshot.data!.length - 1]),
+                    ChatTile(snapshot.data![snapshot.data!.length - 1],
+                        snapshot.data![0]),
                   ],
                 ),
               ),
@@ -145,7 +146,8 @@ class ChatPage extends StatelessWidget {
                     horizontal: defaultMargin,
                   ),
                   children: [
-                    ChatTile(snapshot.data![snapshot.data!.length - 1]),
+                    ChatTile(snapshot.data![snapshot.data!.length - 1],
+                        snapshot.data![0]),
                   ],
                 ),
               ),
