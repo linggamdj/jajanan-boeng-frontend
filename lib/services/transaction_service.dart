@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:jajanan_boeng/models/transaction_model.dart';
 
 class TransactionService {
-  String baseUrl = 'http://00a4-158-140-182-101.ngrok.io/api';
+  String baseUrl = 'http://jajanan-boeng.my.id/api';
 
   Future<List<TransactionModel>> getTransactions(String token) async {
     var url = '$baseUrl/transactions';

@@ -3,7 +3,7 @@ import 'package:jajanan_boeng/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  String baseUrl = 'http://95c1-158-140-182-101.ngrok.io/api';
+  String baseUrl = 'http://jajanan-boeng.my.id/api';
 
   // REGISTER
   Future<UserModel> register({
@@ -30,15 +30,15 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
       var data = jsonDecode(response.body)['data'];
       UserModel user = UserModel.fromJson(data['user']);
       user.token = 'Bearer ' + data['access_token'];
 
       return user;
     } else {
-      print(response.body);
-      print(response.headers);
+      // print(response.body);
+      // print(response.headers);
       throw Exception('Gagal Register');
     }
   }
@@ -62,7 +62,7 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
       var data = jsonDecode(response.body)['data'];
       UserModel user = UserModel.fromJson(data['user']);
       user.token = 'Bearer ' + data['access_token'];
@@ -70,7 +70,6 @@ class AuthService {
       return user;
     } else {
       // print(response.body);
-
       throw Exception('Gagal Login');
     }
   }
@@ -106,7 +105,7 @@ class AuthService {
 
   // CHANGE PASSWORD
   Future<bool> changePassword(String token, String newPassword) async {
-    var url = '$baseUrl/changepasswordd';
+    var url = '$baseUrl/changepassword';
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token,

@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
 class LogoutService {
-  String baseUrl = 'http://25ec-158-140-182-101.ngrok.io/api';
+  String baseUrl = 'http://jajanan-boeng.my.id/api';
 
   Future logout(String token) async {
     var url = '$baseUrl/logout';
@@ -14,7 +14,7 @@ class LogoutService {
     // print(response.body);
 
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
     } else {
       throw Exception('Logout gagal');
     }

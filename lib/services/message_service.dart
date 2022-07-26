@@ -13,7 +13,7 @@ class MessageService {
           .snapshots()
           .map((QuerySnapshot list) {
         var result = list.docs.map<MessageModel>((DocumentSnapshot message) {
-          print(message.data());
+          // print(message.data());
           return MessageModel.fromJson(message.data());
         }).toList();
 
@@ -37,7 +37,7 @@ class MessageService {
           .snapshots()
           .map((QuerySnapshot list) {
         var result = list.docs.map<MessageModel>((DocumentSnapshot message) {
-          print(message.data());
+          // print(message.data());
           return MessageModel.fromJson(message.data());
         }).toList();
 
