@@ -54,7 +54,7 @@ class AppInfoPage extends StatelessWidget {
               height: defaultMargin,
             ),
             Container(
-              // margin: EdgeInsets.only(left: 30, right: 30),
+              // margin: EdgeInsets.only(left: 0, right: 10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(25.0),
                 child: Align(
