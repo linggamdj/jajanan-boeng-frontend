@@ -18,9 +18,10 @@ class TransactionPage extends StatelessWidget {
       return AppBar(
         leading: IconButton(
           onPressed: () {
-            pageProvider.currentIndex == 0
+            pageProvider.currentIndex == 0 || pageProvider.currentIndex == 4
                 ? Navigator.pushNamed(context, '/home')
-                : Navigator.pop(context);
+                : pageProvider.currentIndex = 4;
+            Navigator.pushNamed(context, '/home');
           },
           icon: Icon(Icons.arrow_back),
         ),
