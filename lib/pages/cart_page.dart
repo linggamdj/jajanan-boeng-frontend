@@ -1,19 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/providers/cart_provider.dart';
+import 'package:jajanan_boeng/providers/page_provider.dart';
 import 'package:jajanan_boeng/theme.dart';
 import 'package:jajanan_boeng/widgets/cart_card.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
   @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
 
     header() {
       return AppBar(
-        backgroundColor: backgroundColor1,
+        leading: IconButton(
+          onPressed: () {
+            pageProvider.currentIndex != 0
+                ? pageProvider.currentIndex = 0
+                : Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+        backgroundColor: primaryColor,
         centerTitle: true,
         title: Text(
           'Keranjang Anda',
@@ -28,14 +44,14 @@ class CartPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/ic_cart_empty.png',
+              'assets/new_icon/cart-icon.png',
               width: 80,
             ),
             SizedBox(
               height: 20,
             ),
             Text(
-              'Opss! Your Cart is Empty',
+              'Keranjang Anda Masih Kosong',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -45,7 +61,7 @@ class CartPage extends StatelessWidget {
               height: 12,
             ),
             Text(
-              'Let\'s find your favorite shoes',
+              'Ayo jelajahi produk kami',
               style: secondaryTextStyle,
             ),
             Container(
@@ -56,8 +72,10 @@ class CartPage extends StatelessWidget {
               ),
               child: TextButton(
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/home', (route) => false);
+                  pageProvider.currentIndex != 0
+                      ? pageProvider.currentIndex = 0
+                      : Navigator.pushNamedAndRemoveUntil(
+                          context, '/home', (route) => false);
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: primaryColor,
@@ -68,8 +86,8 @@ class CartPage extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Explore Store',
-                  style: primaryTextStyle.copyWith(
+                  'Jelajahi',
+                  style: whiteTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
                   ),
@@ -99,6 +117,9 @@ class CartPage extends StatelessWidget {
         height: 180,
         child: Column(
           children: [
+            SizedBox(
+              height: 15,
+            ),
             Container(
               margin: EdgeInsets.symmetric(
                 horizontal: defaultMargin,
@@ -111,7 +132,8 @@ class CartPage extends StatelessWidget {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\RP ${cartProvider.totalPrice()}',
+                    NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                        .format(cartProvider.totalPrice()),
                     style: priceTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -121,7 +143,7 @@ class CartPage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 15,
             ),
             Divider(
               thickness: 0.25,
@@ -153,7 +175,7 @@ class CartPage extends StatelessWidget {
                   children: [
                     Text(
                       'Lanjut ke Checkout',
-                      style: primaryTextStyle.copyWith(
+                      style: whiteTextStyle.copyWith(
                         fontSize: 16,
                         fontWeight: semiBold,
                       ),
@@ -172,7 +194,7 @@ class CartPage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor3,
+      backgroundColor: backgroundColor7,
       appBar: header(),
       body: cartProvider.carts.length == 0 ? emptyCart() : content(),
       bottomNavigationBar:

@@ -14,17 +14,14 @@ class TransactionService {
 
     var response = await http.get(Uri.parse(url), headers: headers);
 
-    // print(response.body);
-
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body)['data']['data'];
       List<TransactionModel> transactions = [];
-      // print(data);
 
       for (var item in data) {
         transactions.add(TransactionModel.fromJson(item));
       }
-      // print(transactions);
+
       return transactions;
     } else {
       throw Exception('Gagal mendapatkan transaksi user');

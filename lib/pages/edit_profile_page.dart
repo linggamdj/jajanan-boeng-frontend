@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/models/user_model.dart';
 import 'package:jajanan_boeng/providers/auth_provider.dart';
+import 'package:jajanan_boeng/providers/logout_provider.dart';
 import 'package:jajanan_boeng/providers/page_provider.dart';
+import 'package:jajanan_boeng/widgets/loading_button.dart';
 import 'package:jajanan_boeng/theme.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -13,11 +16,14 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     PageProvider pageProvider = Provider.of<PageProvider>(context);
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
+    LogoutProvider logoutProvider = Provider.of<LogoutProvider>(context);
 
     TextEditingController nameController =
         TextEditingController(text: user.name);
@@ -29,22 +35,28 @@ class _EditProfilePageState extends State<EditProfilePage> {
         TextEditingController(text: user.phone);
 
     handleUpdate() async {
+      setState(() {
+        isLoading = true;
+      });
+
       if (await authProvider.update(
         authProvider.user.token,
         nameController.text,
         addressController.text,
         phoneController.text,
       )) {
+        await logoutProvider.logout(user.token);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: primaryColor,
             content: Text(
-              'Edit profile berhasil! Silakan login kembali',
+              'Edit Profil Berhasil! Silakan Login Kembali',
               textAlign: TextAlign.center,
             ),
           ),
         );
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/sign-in', (route) => false);
         pageProvider.currentIndex = 0;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -57,6 +69,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
         );
       }
+
+      setState(() {
+        isLoading = false;
+      });
     }
 
     header() {
@@ -73,7 +89,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'Edit Profile',
+          'Edit Profil',
         ),
       );
     }
@@ -93,6 +109,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             TextFormField(
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(60),
+              ],
               style: primaryTextStyle,
               controller: nameController,
               decoration: InputDecoration(
@@ -203,7 +222,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
           ),
           child: Text(
-            'Update Profile',
+            'Update Profil',
             style: whiteTextStyle.copyWith(
               fontSize: 16,
               fontWeight: medium,
@@ -249,7 +268,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             nameInput(),
             addressInput(),
             phoneInput(),
-            updateButton(),
+            isLoading ? LoadingButton() : updateButton(),
           ],
         ),
       );

@@ -140,7 +140,11 @@ class ProcedurePage extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [header(), procedureInfo(), aboutPageButton()],
+              children: [
+                header(),
+                procedureInfo(),
+                aboutPageButton(),
+              ],
             ),
           ),
         ),

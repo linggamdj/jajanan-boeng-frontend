@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:jajanan_boeng/pages/sign_in_page.dart';
+import 'package:jajanan_boeng/pages/app_info_page.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/providers/product_provider.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
@@ -16,7 +16,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     getInit();
-
     super.initState();
   }
 
@@ -27,12 +26,12 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      backgroundColor: backgroundColor0,
+      backgroundColor: backgroundColor7,
       splash: Image.asset(
         'assets/new_icon/logo-boeng.png',
       ),
       splashIconSize: 200.0,
-      nextScreen: SignInPage(),
+      nextScreen: AppInfoPage(),
       splashTransition: SplashTransition.fadeTransition,
       duration: 1500,
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:jajanan_boeng/models/product_model.dart';
 import 'package:jajanan_boeng/theme.dart';
 
@@ -56,7 +57,8 @@ class ChatBubble extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        'Rp${product.price}',
+                        NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                            .format(product.price),
                         style: priceTextStyle.copyWith(
                           fontWeight: medium,
                         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:jajanan_boeng/models/cart_model.dart';
 import 'package:jajanan_boeng/theme.dart';
 
@@ -17,8 +18,17 @@ class CheckoutCard extends StatelessWidget {
         horizontal: 12,
       ),
       decoration: BoxDecoration(
-        color: backgroundColor4,
+        color: backgroundColor7,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: primaryColor),
+        boxShadow: [
+          BoxShadow(
+            color: primaryColor.withOpacity(0.3),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: Offset(1, 1),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -52,7 +62,16 @@ class CheckoutCard extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  '\RP ${cart.product.price}',
+                  cart.product.category.name,
+                  style: secondaryTextStyle,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Text(
+                  NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                      .format(cart.product.price),
                   style: priceTextStyle,
                 ),
               ],
@@ -62,8 +81,8 @@ class CheckoutCard extends StatelessWidget {
             width: 12,
           ),
           Text(
-            '${cart.quantity} Items',
-            style: secondaryTextStyle,
+            '${cart.quantity} Barang',
+            style: orangeTextStyle,
           ),
         ],
       ),

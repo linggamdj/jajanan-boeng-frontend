@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/models/product_model.dart';
 import 'package:jajanan_boeng/pages/detail_chat_page.dart';
@@ -153,12 +154,12 @@ class _ProductPageState extends State<ProductPage> {
                       right: defaultMargin,
                     ),
                     child: Text(
-                      widget.product.name,
+                      'Detail Produk',
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: whiteTextStyle.copyWith(
                         fontWeight: semiBold,
-                        fontSize: 22,
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -310,7 +311,8 @@ class _ProductPageState extends State<ProductPage> {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\RP ${widget.product.price}',
+                    NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                        .format(widget.product.price),
                     style: orangeTextStyle.copyWith(
                         fontSize: 16, fontWeight: semiBold),
                   ),

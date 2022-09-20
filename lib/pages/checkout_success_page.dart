@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:jajanan_boeng/theme.dart';
+import 'package:provider/provider.dart';
+import 'package:jajanan_boeng/models/user_model.dart';
+import 'package:jajanan_boeng/providers/auth_provider.dart';
+import 'package:jajanan_boeng/providers/transaction_provider.dart';
 
 class CheckoutSuccessPage extends StatelessWidget {
   const CheckoutSuccessPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+    Provider.of<TransactionProvider>(context).getTransactions(user.token);
+
     header() {
       return AppBar(
-        backgroundColor: backgroundColor1,
+        backgroundColor: primaryColor,
         centerTitle: true,
         title: Text(
-          'Checkout Success',
+          'Checkout Berhasil',
         ),
         elevation: 0,
       );
@@ -23,15 +31,15 @@ class CheckoutSuccessPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/ic_cart_empty.png',
+              'assets/new_icon/cart-icon.png',
               width: 80,
             ),
             SizedBox(
               height: 20,
             ),
             Text(
-              'You made a transaction',
-              style: primaryTextStyle.copyWith(
+              'Transaksi Anda Berhasil',
+              style: orangeTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -39,10 +47,16 @@ class CheckoutSuccessPage extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
-            Text(
-              'Stay at home while we\nprepare your dream shoes',
-              style: secondaryTextStyle,
-              textAlign: TextAlign.center,
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+              ),
+              child: Text(
+                'Silakan melakukan konfirmasi transfer melalui Whatsapp pada halaman Profile, kemudian Konfirmasi',
+                style: secondaryTextStyle,
+                textAlign: TextAlign.center,
+              ),
             ),
             Container(
               width: 196,
@@ -62,11 +76,12 @@ class CheckoutSuccessPage extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Order Other Shoes',
-                  style: primaryTextStyle.copyWith(
+                  'Kembali ke Home',
+                  style: whiteTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
@@ -77,18 +92,22 @@ class CheckoutSuccessPage extends StatelessWidget {
                 top: 12,
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/transactions', (route) => false);
+                },
                 style: TextButton.styleFrom(
-                    backgroundColor: Color(0xff39374B),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    )),
+                  backgroundColor: backgroundColor8,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
                 child: Text(
-                  'View My Order',
+                  'Lihat Pesanan Saya',
                   style: primaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
-                    color: Color(0xffB7B6BF),
+                    color: secondaryTextColor,
                   ),
                 ),
               ),
@@ -99,7 +118,7 @@ class CheckoutSuccessPage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor3,
+      backgroundColor: backgroundColor7,
       appBar: header(),
       body: content(),
     );

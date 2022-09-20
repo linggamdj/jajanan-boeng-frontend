@@ -30,15 +30,12 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
-      // print(response.body);
       var data = jsonDecode(response.body)['data'];
       UserModel user = UserModel.fromJson(data['user']);
       user.token = 'Bearer ' + data['access_token'];
 
       return user;
     } else {
-      // print(response.body);
-      // print(response.headers);
       throw Exception('Gagal Register');
     }
   }
@@ -62,14 +59,12 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
-      // print(response.body);
       var data = jsonDecode(response.body)['data'];
       UserModel user = UserModel.fromJson(data['user']);
       user.token = 'Bearer ' + data['access_token'];
 
       return user;
     } else {
-      // print(response.body);
       throw Exception('Gagal Login');
     }
   }
@@ -94,8 +89,6 @@ class AuthService {
       body: body,
     );
 
-    // print(response.body);
-
     if (response.statusCode == 200) {
       return true;
     } else {
@@ -119,8 +112,6 @@ class AuthService {
       headers: headers,
       body: body,
     );
-
-    // print(response.body);
 
     if (response.statusCode == 200) {
       return true;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/models/user_model.dart';
 import 'package:jajanan_boeng/models/message_model.dart';
@@ -131,7 +132,8 @@ class _DetailChatPageState extends State<DetailChatPage> {
                     height: 2,
                   ),
                   Text(
-                    'Rp${widget.product.price}',
+                    NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                        .format(widget.product.price),
                     style: priceTextStyle.copyWith(
                       fontWeight: medium,
                     ),

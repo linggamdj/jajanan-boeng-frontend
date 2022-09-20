@@ -29,15 +29,11 @@ class CheckoutService {
       },
     );
 
-    // print(body);
-
     var response = await http.post(
       Uri.parse(url),
       headers: headers,
       body: body,
     );
-
-    // print(response.request);
 
     if (response.statusCode == 200) {
       return true;

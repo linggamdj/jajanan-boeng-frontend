@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:jajanan_boeng/models/product_model.dart';
 import 'package:jajanan_boeng/pages/product_page.dart';
 import 'package:jajanan_boeng/theme.dart';
@@ -53,7 +54,7 @@ class ProductTile extends StatelessWidget {
                   ),
                   Text(
                     product.name,
-                    style: primaryTextStyle.copyWith(
+                    style: orangeTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
                     ),
@@ -63,7 +64,8 @@ class ProductTile extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    '\RP ${product.price}',
+                    NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                        .format(product.price),
                     style: priceTextStyle.copyWith(
                       fontWeight: medium,
                     ),

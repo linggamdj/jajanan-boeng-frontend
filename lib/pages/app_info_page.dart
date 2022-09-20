@@ -69,7 +69,7 @@ class AppInfoPage extends StatelessWidget {
               height: defaultMargin,
             ),
             Text(
-              'Jajanan Bo’eng merupakan usaha kuliner yang menjual makanan khas Anambas yaitu Luti Gendang. Luti gendang merupakan roti yang dibuat dari olahan tepung terigu, ragi, margarin, susu cair, telur ayam, gula, dan garam sebagai adonan utama dengan isian ikan tuna.',
+              'Jajanan Bo’eng merupakan usaha kuliner yang menjual makanan khas Anambas yaitu Luti Gendang. Luti gendang merupakan roti yang dibuat dari olahan tepung terigu, ragi, margarin, susu cair, telur ayam, gula, dan garam sebagai adonan utama dengan isian ikan tuna. Lokasi toko terletak pada Jalan Puspa Asri no. 25 kota Tangerang.',
               style: subtitleTextStyle,
               textAlign: TextAlign.justify,
             ),
@@ -82,10 +82,37 @@ class AppInfoPage extends StatelessWidget {
       return Container(
         height: 50,
         width: double.infinity,
-        margin: EdgeInsets.only(top: 30),
+        margin: EdgeInsets.only(top: 12, bottom: defaultMargin),
         child: TextButton(
           onPressed: () {
             Navigator.pushNamed(context, '/sign-in');
+          },
+          style: TextButton.styleFrom(
+            backgroundColor: backgroundColor8,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(
+            'Login atau Register',
+            style: primaryTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: medium,
+              color: secondaryTextColor,
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget procedurePageButton() {
+      return Container(
+        height: 50,
+        width: double.infinity,
+        margin: EdgeInsets.only(top: 30),
+        child: TextButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/procedure');
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
@@ -94,7 +121,7 @@ class AppInfoPage extends StatelessWidget {
             ),
           ),
           child: Text(
-            'Login atau Register Sekarang',
+            'Prosedur Pembelian',
             style: whiteTextStyle.copyWith(
               fontSize: 16,
               fontWeight: medium,
@@ -114,7 +141,12 @@ class AppInfoPage extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [header(), appinfo(), loginPageButton()],
+              children: [
+                header(),
+                appinfo(),
+                procedurePageButton(),
+                loginPageButton()
+              ],
             ),
           ),
         ),

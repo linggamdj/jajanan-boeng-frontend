@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/models/cart_model.dart';
 import 'package:jajanan_boeng/providers/cart_provider.dart';
@@ -21,7 +22,7 @@ class CartCard extends StatelessWidget {
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: backgroundColor4,
+        color: backgroundColor8,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -51,8 +52,19 @@ class CartCard extends StatelessWidget {
                         fontWeight: semiBold,
                       ),
                     ),
+                    SizedBox(
+                      height: 2,
+                    ),
                     Text(
-                      '\RP ${cart.product.price}',
+                      cart.product.category.name,
+                      style: secondaryTextStyle,
+                    ),
+                    SizedBox(
+                      height: 2,
+                    ),
+                    Text(
+                      NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                          .format(cart.product.price),
                       style: priceTextStyle,
                     ),
                   ],
@@ -65,7 +77,7 @@ class CartCard extends StatelessWidget {
                       cartProvider.addQuantity(cart.id);
                     },
                     child: Image.asset(
-                      'assets/btn_qty_add.png',
+                      'assets/new_icon/add-item.png',
                       width: 16,
                     ),
                   ),
@@ -86,7 +98,7 @@ class CartCard extends StatelessWidget {
                       cartProvider.reduceQuantity(cart.id);
                     },
                     child: Image.asset(
-                      'assets/btn_qty_delete.png',
+                      'assets/new_icon/reduce-item.png',
                       width: 16,
                     ),
                   ),
@@ -95,7 +107,7 @@ class CartCard extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 12,
+            height: 2,
           ),
           GestureDetector(
             onTap: () {

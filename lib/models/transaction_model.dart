@@ -2,7 +2,6 @@ import 'transaction_item_model.dart';
 
 class TransactionModel {
   late int id;
-  late String users_address;
   late int total_price;
   late String status;
   late String payment;
@@ -12,7 +11,6 @@ class TransactionModel {
 
   TransactionModel({
     required this.id,
-    required this.users_address,
     required this.total_price,
     required this.status,
     required this.payment,
@@ -23,7 +21,6 @@ class TransactionModel {
 
   TransactionModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    users_address = json['users_address'];
     total_price = int.parse(json['total_price'].toString());
     status = json['status'];
     payment = json['payment'];
@@ -38,7 +35,6 @@ class TransactionModel {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'users_address': users_address,
       'total_price': total_price,
       'status': status,
       'payment': payment,

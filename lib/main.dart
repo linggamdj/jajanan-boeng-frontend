@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:jajanan_boeng/pages/app_info_page.dart';
+import 'package:jajanan_boeng/pages/procedure_page.dart';
 import 'package:jajanan_boeng/pages/transaction_page.dart';
 import 'package:jajanan_boeng/providers/logout_provider.dart';
 import 'package:jajanan_boeng/providers/transaction_provider.dart';
@@ -61,7 +62,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           '/': (context) => SplashPage(),
-          '/info': (context) => AppInfoPage(),
+          '/about': (context) => AppInfoPage(),
+          '/procedure': (context) => ProcedurePage(),
           '/sign-in': (context) => SignInPage(),
           '/sign-up': (context) => SignUpPage(),
           '/home': (context) => MainPage(),

@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
 
     handleLogout() async {
       await logoutProvider.logout(user.token);
-      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, '/sign-in', (route) => false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: primaryColor,
@@ -177,7 +177,7 @@ class ProfilePage extends StatelessWidget {
                   Navigator.pushNamed(context, '/edit-profile');
                 },
                 child: menuItem(
-                  'Edit Profile',
+                  'Edit Profil',
                 ),
               ),
               GestureDetector(

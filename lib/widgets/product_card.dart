@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:jajanan_boeng/models/product_model.dart';
 import 'package:jajanan_boeng/pages/product_page.dart';
 import 'package:jajanan_boeng/theme.dart';
@@ -35,9 +36,9 @@ class ProductCard extends StatelessWidget {
               height: 30,
             ),
             Image.network(
-              product.galleries[0].url == null
-                  ? 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png'
-                  : product.galleries[0].url,
+              product.galleries[0].url.length != 0
+                  ? product.galleries[0].url
+                  : 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png',
               width: 215,
               height: 150,
               fit: BoxFit.cover,
@@ -71,7 +72,8 @@ class ProductCard extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    '\RP ${product.price}',
+                    NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                        .format(product.price),
                     style: priceTextStyle.copyWith(
                       fontSize: 14,
                       fontWeight: medium,

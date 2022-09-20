@@ -158,6 +158,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(60),
+                        ],
                         style: primaryTextStyle,
                         controller: nameController,
                         decoration: InputDecoration.collapsed(
@@ -468,7 +471,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
           child: Text(
-            'Sign Up',
+            'Register',
             style: whiteTextStyle.copyWith(
               fontSize: 16,
               fontWeight: medium,

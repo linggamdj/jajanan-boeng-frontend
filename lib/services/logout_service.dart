@@ -11,10 +11,9 @@ class LogoutService {
     };
 
     var response = await http.post(Uri.parse(url), headers: headers);
-    // print(response.body);
 
     if (response.statusCode == 200) {
-      // print(response.body);
+      return true;
     } else {
       throw Exception('Logout gagal');
     }

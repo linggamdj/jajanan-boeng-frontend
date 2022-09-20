@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/models/product_model.dart';
 import 'package:jajanan_boeng/providers/wishlist_provider.dart';
@@ -26,7 +27,7 @@ class WishlistCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: backgroundColor4,
+        color: backgroundColor8,
       ),
       child: Row(
         children: [
@@ -51,7 +52,8 @@ class WishlistCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '\RP ${product.price}',
+                  NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                      .format(product.price),
                   style: priceTextStyle,
                 ),
               ],
@@ -62,7 +64,7 @@ class WishlistCard extends StatelessWidget {
               wishlistProvider.setProduct(product);
             },
             child: Image.asset(
-              'assets/btn_wishlist_blue.png',
+              'assets/new_icon/love.png',
               width: 34,
             ),
           ),

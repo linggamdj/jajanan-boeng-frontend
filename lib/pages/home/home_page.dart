@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:jajanan_boeng/models/user_model.dart';
 import 'package:jajanan_boeng/providers/auth_provider.dart';
 import 'package:jajanan_boeng/providers/product_provider.dart';
-import 'package:jajanan_boeng/providers/transaction_provider.dart';
 import 'package:jajanan_boeng/theme.dart';
 import 'package:jajanan_boeng/widgets/product_card.dart';
 import 'package:jajanan_boeng/widgets/product_tile.dart';
@@ -14,7 +13,6 @@ class HomePage extends StatelessWidget {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
-    Provider.of<TransactionProvider>(context).getTransactions(user.token);
 
     Widget header() {
       return Container(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:jajanan_boeng/models/transaction_model.dart';
 import 'package:jajanan_boeng/theme.dart';
 
@@ -22,7 +23,7 @@ class _DetailTransactionPageState extends State<DetailTransactionPage> {
       );
     }
 
-    Widget itemCard(int quantity, String name, int price) {
+    Widget itemCard(int quantity, String name, int price, String category) {
       return Container(
         margin: EdgeInsets.only(
           top: 12,
@@ -74,7 +75,15 @@ class _DetailTransactionPageState extends State<DetailTransactionPage> {
                     height: 2,
                   ),
                   Text(
-                    'Rp${price}',
+                    category,
+                    style: secondaryTextStyle,
+                  ),
+                  SizedBox(
+                    height: 2,
+                  ),
+                  Text(
+                    NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                        .format(price),
                     style: priceTextStyle,
                   ),
                 ],
@@ -84,7 +93,7 @@ class _DetailTransactionPageState extends State<DetailTransactionPage> {
               width: 12,
             ),
             Text(
-              '${quantity} Items',
+              '${quantity} Barang',
               style: orangeTextStyle,
             ),
           ],
@@ -187,11 +196,30 @@ class _DetailTransactionPageState extends State<DetailTransactionPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Rekening',
+                  'No. Rekening',
+                  style: secondaryTextStyle.copyWith(fontSize: 12),
+                ),
+                SelectableText(
+                  '6760441625',
+                  cursorWidth: 0,
+                  style: primaryTextStyle.copyWith(
+                    fontWeight: medium,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Jenis Rekening',
                   style: secondaryTextStyle.copyWith(fontSize: 12),
                 ),
                 Text(
-                  '7033087609 (BCA A.N. Farhan)',
+                  'BCA (A/N R Monica)',
                   style: primaryTextStyle.copyWith(
                     fontWeight: medium,
                   ),
@@ -218,7 +246,8 @@ class _DetailTransactionPageState extends State<DetailTransactionPage> {
                   ),
                 ),
                 Text(
-                  'Rp${widget.transaction.total_price}',
+                  NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                      .format(widget.transaction.total_price),
                   style: priceTextStyle.copyWith(
                     fontWeight: semiBold,
                   ),
@@ -255,7 +284,7 @@ class _DetailTransactionPageState extends State<DetailTransactionPage> {
                   children: widget.transaction.items
                       .map(
                         (item) => itemCard(item.quantity, item.product.name,
-                            item.product.price),
+                            item.product.price, item.product.category.name),
                       )
                       .toList(),
                 ),

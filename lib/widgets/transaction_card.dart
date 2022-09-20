@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:jajanan_boeng/pages/detail_transaction_page.dart';
 import 'package:jajanan_boeng/models/transaction_model.dart';
 import 'package:jajanan_boeng/theme.dart';
@@ -108,7 +109,8 @@ class TransactionCard extends StatelessWidget {
                             style: primaryTextStyle,
                           ),
                           Text(
-                            'Rp${transaction.total_price}',
+                            NumberFormat.currency(locale: 'id', symbol: 'Rp')
+                                .format(transaction.total_price),
                             style: priceTextStyle.copyWith(
                               fontWeight: semiBold,
                             ),

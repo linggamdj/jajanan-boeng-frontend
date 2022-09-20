@@ -6,7 +6,6 @@ class ProductModel {
   late String name;
   late int price;
   late String description;
-  late String tags;
   late CategoryModel category;
   late DateTime createdAt;
   late DateTime updatedAt;
@@ -17,7 +16,6 @@ class ProductModel {
     required this.name,
     required this.price,
     required this.description,
-    required this.tags,
     required this.category,
     required this.createdAt,
     required this.updatedAt,
@@ -29,7 +27,6 @@ class ProductModel {
     name = json['name'];
     price = int.parse(json['price'].toString());
     description = json['description'];
-    tags = json['tags'];
     category = CategoryModel.fromJson(json['category']);
     galleries = json['galleries']
         .map<GalleryModel>((gallery) => GalleryModel.fromJson(gallery))
@@ -44,7 +41,6 @@ class ProductModel {
       'name': name,
       'price': price,
       'description': description,
-      'tags': tags,
       'category': category.toJson(),
       'galleries': galleries.map((gallery) => gallery.toJson()).toList(),
       'created_at': createdAt.toString(),
